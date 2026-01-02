@@ -368,7 +368,7 @@ const App = () => {
                    2. Put it in the "public" folder of your GitHub project
                 */}
                 <img 
-                  src="/profile.jpg" 
+                  src="/profile.jpeg" 
                   alt="Shipra Kiran Bansal" 
                   className="profile-img"
                   onError={(e) => {
