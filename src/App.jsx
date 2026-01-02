@@ -39,10 +39,10 @@ const App = () => {
     }
   ];
 
-  // --- CSS STYLES ---
+  // --- CSS STYLES (UPDATED FOR WIDE SCREENS) ---
   const styles = `
     :root {
-      --primary: #0d9488; /* Teal 600 */
+      --primary: #0d9488;
       --primary-dark: #0f766e;
       --primary-light: #ccfbf1;
       --text-main: #0f172a;
@@ -58,13 +58,16 @@ const App = () => {
       color: var(--text-main); 
       background-color: var(--bg-off-white);
       line-height: 1.6;
+      width: 100%;
+      overflow-x: hidden;
     }
 
-    /* Container */
+    /* WIDE CONTAINER FIX */
     .container {
-      max-width: 1150px;
+      width: 100%;
+      max-width: 1600px; /* Increased from 1150px to fill laptop screens */
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 40px;   /* More breathing room on sides */
     }
 
     /* Navigation */
@@ -74,6 +77,7 @@ const App = () => {
       position: sticky;
       top: 0;
       z-index: 100;
+      width: 100%;
     }
     .nav-content {
       display: flex;
@@ -99,11 +103,12 @@ const App = () => {
     .btn-primary {
       background: var(--primary);
       color: white !important;
-      padding: 10px 24px;
+      padding: 12px 28px;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
       transition: transform 0.2s;
+      white-space: nowrap;
     }
     .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
 
@@ -120,26 +125,28 @@ const App = () => {
       padding: 80px 0;
       background: linear-gradient(to bottom, var(--primary-light), var(--white));
       overflow: hidden;
+      width: 100%;
     }
     .hero-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 40px;
+      gap: 60px;
       align-items: center;
     }
     .badge {
       display: inline-flex; align-items: center;
-      background: var(--primary-light); color: var(--primary-dark);
-      padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600;
-      margin-bottom: 24px;
+      background: var(--white); color: var(--primary-dark);
+      padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 600;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
-    .hero h1 { font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 24px; }
-    .hero p { font-size: 1.125rem; color: var(--text-muted); margin-bottom: 32px; max-width: 600px; }
+    .hero h1 { font-size: 3rem; font-weight: 800; line-height: 1.1; margin-bottom: 24px; letter-spacing: -1px; }
+    .hero p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 40px; max-width: 650px; line-height: 1.7; }
     
     .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
     .btn-secondary {
       background: white; color: var(--text-main);
-      border: 1px solid #cbd5e1; padding: 10px 24px;
+      border: 1px solid #cbd5e1; padding: 12px 28px;
       border-radius: 50px; text-decoration: none; font-weight: 600;
       transition: 0.2s;
     }
@@ -148,14 +155,15 @@ const App = () => {
     /* Image Styles */
     .image-wrapper {
       position: relative;
-      max-width: 400px;
+      max-width: 480px; /* Bigger image for bigger screens */
       margin: 0 auto;
+      width: 100%;
     }
     .profile-frame {
-      border-radius: 20px;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      border: 4px solid white;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border: 6px solid white;
       aspect-ratio: 4/5;
       background: #e2e8f0;
       position: relative;
@@ -168,31 +176,34 @@ const App = () => {
     .floating-card {
       position: absolute;
       background: white;
-      padding: 12px 20px;
-      border-radius: 12px;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      display: flex; align-items: center; gap: 12px;
+      padding: 16px 24px;
+      border-radius: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      display: flex; align-items: center; gap: 16px;
       z-index: 10;
+      white-space: nowrap;
     }
-    .card-top { top: -20px; right: -20px; }
-    .card-bottom { bottom: -20px; right: -20px; }
-    .card-icon { background: var(--primary-light); pading: 8px; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
+    .card-top { top: 40px; right: -40px; }
+    .card-bottom { bottom: 40px; left: -40px; }
+    .card-icon { background: var(--primary-light); padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
     /* About Section */
-    .section { padding: 80px 0; }
+    .section { padding: 100px 0; }
     .bg-white { background: white; }
     .text-center { text-align: center; }
-    .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 16px; }
-    .divider { width: 80px; height: 4px; background: var(--primary); margin: 0 auto 60px; border-radius: 2px; }
+    .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; }
+    .divider { width: 100px; height: 5px; background: var(--primary); margin: 0 auto 60px; border-radius: 10px; }
     
     .about-card {
       background: var(--bg-off-white);
-      padding: 40px; border-radius: 24px;
+      padding: 60px; border-radius: 32px;
       border: 1px solid #e2e8f0;
+      max-width: 1000px;
+      margin: 0 auto;
     }
     .stats-grid {
       display: grid; grid-template-columns: 1fr;
-      gap: 20px; margin-top: 40px;
+      gap: 30px; margin-top: 50px;
     }
 
     /* Services Section */
@@ -201,37 +212,46 @@ const App = () => {
       gap: 32px;
     }
     .service-card {
-      background: white; padding: 32px;
-      border-radius: 16px;
+      background: white; padding: 40px;
+      border-radius: 24px;
       border: 1px solid #e2e8f0;
       cursor: pointer; transition: 0.2s;
+      height: 100%;
     }
-    .service-card:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+    .service-card:hover { 
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); 
+      border-color: var(--primary-light);
+    }
     .service-header { display: flex; justify-content: space-between; align-items: flex-start; }
-    .service-title-group { display: flex; gap: 16px; align-items: center; }
-    .icon-box { background: var(--primary-light); padding: 12px; border-radius: 12px; }
+    .service-title-group { display: flex; gap: 20px; align-items: center; }
+    .icon-box { background: var(--primary-light); padding: 16px; border-radius: 16px; }
     .service-details {
       max-height: 0; overflow: hidden; opacity: 0;
       transition: all 0.3s ease;
     }
-    .service-details.open { max-height: 200px; opacity: 1; margin-top: 16px; padding-top: 16px; border-top: 1px solid #eee; }
+    .service-details.open { max-height: 300px; opacity: 1; margin-top: 24px; padding-top: 24px; border-top: 1px solid #f1f5f9; }
 
     /* Writing Section */
     .writing-box {
-      max-width: 800px; margin: 0 auto; text-center;
+      max-width: 900px; margin: 0 auto; text-center;
     }
     .social-buttons {
-      display: flex; gap: 16px; justify-content: center; margin-top: 40px; flex-wrap: wrap;
+      display: flex; gap: 20px; justify-content: center; margin-top: 40px; flex-wrap: wrap;
     }
     .btn-insta {
       background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
-      color: white; padding: 12px 32px; border-radius: 50px;
-      text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 8px;
+      color: white; padding: 16px 40px; border-radius: 50px;
+      text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 10px; font-size: 1.1rem;
+      transition: transform 0.2s;
     }
+    .btn-insta:hover, .btn-linkedin:hover { transform: scale(1.05); }
+
     .btn-linkedin {
       background: #0077b5;
-      color: white; padding: 12px 32px; border-radius: 50px;
-      text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 8px;
+      color: white; padding: 16px 40px; border-radius: 50px;
+      text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 10px; font-size: 1.1rem;
+      transition: transform 0.2s;
     }
 
     /* Approach */
@@ -240,39 +260,49 @@ const App = () => {
     .glass-card {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
-      padding: 24px; border-radius: 16px;
+      padding: 40px; border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     /* Contact */
     .contact-card {
       background: var(--bg-off-white);
-      padding: 40px; border-radius: 24px;
-      max-width: 500px; margin: 0 auto;
+      padding: 60px; border-radius: 32px;
+      max-width: 600px; margin: 0 auto;
       border: 1px solid #e2e8f0;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
     }
     .btn-whatsapp {
-      background: var(--primary); color: white;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 16px; border-radius: 12px; text-decoration: none; font-weight: 700;
-      margin-bottom: 24px;
+      background: #25D366; color: white;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 20px; border-radius: 16px; text-decoration: none; font-weight: 700; font-size: 1.1rem;
+      margin-bottom: 32px;
+      transition: background 0.2s;
     }
-    .social-links { display: flex; justify-content: center; gap: 16px; }
+    .btn-whatsapp:hover { background: #22c55e; }
+    .social-links { display: flex; justify-content: center; gap: 20px; }
     .social-icon { 
-      background: white; padding: 12px; border-radius: 50%; 
+      background: white; padding: 16px; border-radius: 50%; 
       color: var(--text-muted); border: 1px solid #e2e8f0;
       display: flex; align-items: center; justify-content: center;
+      transition: 0.2s;
     }
+    .social-icon:hover { color: var(--primary); border-color: var(--primary); transform: translateY(-2px); }
 
     /* Responsive Media Queries */
     @media (min-width: 768px) {
       .desktop-menu { display: flex; }
       .mobile-menu-btn { display: none; }
-      .hero-grid { grid-template-columns: 7fr 5fr; }
-      .hero h1 { font-size: 3.5rem; }
+      .hero-grid { grid-template-columns: 1fr 1fr; gap: 80px; } /* Wider grid gap */
+      .hero h1 { font-size: 4rem; } /* Bigger text */
       .stats-grid { grid-template-columns: 1fr 1fr 1fr; }
       .services-grid { grid-template-columns: 1fr 1fr; }
       .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    
+    @media (min-width: 1200px) {
+       .container { padding: 0 60px; }
+       .hero h1 { font-size: 5rem; }
     }
   `;
 
@@ -334,34 +364,35 @@ const App = () => {
           <div className="image-wrapper">
              <div className="profile-frame">
                 {/* IMPORTANT: 
-
+                   1. Rename your photo to "profile.jpg"
+                   2. Put it in the "public" folder of your GitHub project
                 */}
                 <img 
-                  src="/profile.jpeg" 
+                  src="/profile.jpg" 
                   alt="Shipra Kiran Bansal" 
                   className="profile-img"
                   onError={(e) => {
                     e.target.onerror = null; 
-                    e.target.style.display = 'none'; // Hide broken image
-                    e.target.parentNode.innerHTML += '<div style="height:100%; display:flex; flex-direction:col; align-items:center; justify-content:center; color:#94a3b8; text-align:center;"><span style="font-size: 40px; margin-bottom:10px;">👤</span><p>Add profile.jpg<br>to public folder</p></div>';
+                    e.target.style.display = 'none';
+                    e.target.parentNode.innerHTML += '<div style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#94a3b8; text-align:center; padding:20px;"><span style="font-size: 40px; margin-bottom:10px;">👤</span><p style="font-size:14px"><strong>Photo Missing</strong><br>Put <code>profile.jpg</code> in the <code>public</code> folder</p></div>';
                   }}
                 />
              </div>
              
              {/* Floating Cards */}
              <div className="floating-card card-top">
-                <div className="card-icon"><Anchor size={16} color="#0d9488"/></div>
+                <div className="card-icon"><Anchor size={20} color="#0d9488"/></div>
                 <div>
-                  <div style={{fontSize: '10px', color: '#64748b', fontWeight: 'bold'}}>BACKGROUND</div>
-                  <div style={{fontWeight: 'bold', fontSize: '12px'}}>Navy Veteran</div>
+                  <div style={{fontSize: '11px', color: '#64748b', fontWeight: 'bold', letterSpacing: '0.5px'}}>BACKGROUND</div>
+                  <div style={{fontWeight: 'bold', fontSize: '14px', color: '#0f172a'}}>Navy Veteran</div>
                 </div>
              </div>
              
              <div className="floating-card card-bottom">
-                <div className="card-icon"><CheckCircle size={16} color="#0d9488"/></div>
+                <div className="card-icon"><CheckCircle size={20} color="#0d9488"/></div>
                 <div>
-                  <div style={{fontSize: '10px', color: '#64748b', fontWeight: 'bold'}}>EXPERIENCE</div>
-                  <div style={{fontWeight: 'bold', fontSize: '12px'}}>10+ Years</div>
+                  <div style={{fontSize: '11px', color: '#64748b', fontWeight: 'bold', letterSpacing: '0.5px'}}>EXPERIENCE</div>
+                  <div style={{fontWeight: 'bold', fontSize: '14px', color: '#0f172a'}}>10+ Years</div>
                 </div>
              </div>
           </div>
@@ -377,28 +408,28 @@ const App = () => {
           </div>
           
           <div className="about-card">
-            <p style={{fontSize: '1.125rem', marginBottom: '20px'}}>
+            <p style={{fontSize: '1.25rem', marginBottom: '20px', lineHeight: 1.8}}>
               Hello! I'm <strong style={{color: 'var(--primary)'}}>Shipra Kiran Bansal</strong>. My path has been wonderfully unique, transitioning from a disciplined background in the <strong>Indian Navy</strong> to working with respected schools and renowned platforms like <strong>iMumz</strong>.
             </p>
-            <p style={{fontSize: '1.125rem'}}>
+            <p style={{fontSize: '1.25rem', lineHeight: 1.8}}>
               With over <strong style={{color: 'var(--primary)'}}>10 years of experience</strong> as a Counsellor & Facilitator, these diverse roles have deepened my understanding of the emotional and behavioral challenges people face in today's fast-paced world.
             </p>
             
             <div className="stats-grid">
               <div className="text-center">
-                <Heart size={32} color="#0d9488" style={{marginBottom: 10}} />
+                <Heart size={40} color="#0d9488" style={{marginBottom: 16}} />
                 <h3>Empathetic</h3>
-                <p style={{fontSize: '0.9rem', color: 'var(--text-muted)'}}>Deep understanding of human emotions</p>
+                <p style={{fontSize: '1rem', color: 'var(--text-muted)'}}>Deep understanding of human emotions</p>
               </div>
               <div className="text-center">
-                <Users size={32} color="#2563eb" style={{marginBottom: 10}} />
+                <Users size={40} color="#2563eb" style={{marginBottom: 16}} />
                 <h3>Experienced</h3>
-                <p style={{fontSize: '0.9rem', color: 'var(--text-muted)'}}>Diverse background in various sectors</p>
+                <p style={{fontSize: '1rem', color: 'var(--text-muted)'}}>Diverse background in various sectors</p>
               </div>
               <div className="text-center">
-                <Brain size={32} color="#9333ea" style={{marginBottom: 10}} />
+                <Brain size={40} color="#9333ea" style={{marginBottom: 16}} />
                 <h3>Holistic</h3>
-                <p style={{fontSize: '0.9rem', color: 'var(--text-muted)'}}>Addressing mind, behavior, and bonds</p>
+                <p style={{fontSize: '1rem', color: 'var(--text-muted)'}}>Addressing mind, behavior, and bonds</p>
               </div>
             </div>
           </div>
@@ -411,7 +442,7 @@ const App = () => {
           <div className="text-center">
             <h2 className="section-title">How I Can Help</h2>
             <div className="divider"></div>
-            <p style={{marginBottom: '40px', color: 'var(--text-muted)'}}>
+            <p style={{marginBottom: '60px', color: 'var(--text-muted)', fontSize: '1.2rem'}}>
               I offer specialized guidance for individuals, couples, children, teens, and parents tailored to your unique needs.
             </p>
           </div>
@@ -422,20 +453,20 @@ const App = () => {
                 <div className="service-header">
                   <div className="service-title-group">
                     <div className="icon-box">{service.icon}</div>
-                    <h3 style={{fontSize: '1.25rem'}}>{service.title}</h3>
+                    <h3 style={{fontSize: '1.5rem', fontWeight: 'bold'}}>{service.title}</h3>
                   </div>
-                  <ChevronDown size={20} style={{transform: activeAccordion === index ? 'rotate(180deg)' : 'rotate(0)', transition: '0.3s'}} />
+                  <ChevronDown size={24} style={{transform: activeAccordion === index ? 'rotate(180deg)' : 'rotate(0)', transition: '0.3s'}} />
                 </div>
-                <p style={{marginTop: '16px', color: 'var(--text-muted)'}}>{service.description}</p>
+                <p style={{marginTop: '20px', color: 'var(--text-muted)', fontSize: '1.1rem'}}>{service.description}</p>
                 <div className={`service-details ${activeAccordion === index ? 'open' : ''}`}>
-                  <p style={{fontStyle: 'italic', fontSize: '0.9rem', color: '#64748b'}}>"{service.details}"</p>
+                  <p style={{fontStyle: 'italic', fontSize: '1rem', color: '#64748b'}}>"{service.details}"</p>
                 </div>
               </div>
             ))}
           </div>
           
-          <div className="text-center" style={{marginTop: '40px'}}>
-             <div style={{display: 'inline-block', background: 'white', padding: '12px 24px', borderRadius: '50px', border: '1px solid #ccfbf1', fontSize: '0.9rem'}}>
+          <div className="text-center" style={{marginTop: '60px'}}>
+             <div style={{display: 'inline-block', background: 'white', padding: '16px 32px', borderRadius: '50px', border: '1px solid #ccfbf1', fontSize: '1rem', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)'}}>
                 <span style={{color: 'var(--primary)', fontWeight: 'bold'}}>Note:</span> I do not prescribe medicines. My approach is purely therapeutic and behavioral.
              </div>
           </div>
@@ -445,22 +476,22 @@ const App = () => {
       {/* Writing Section */}
       <section id="writing" className="section bg-white">
         <div className="container writing-box">
-            <div style={{background: 'var(--primary-light)', width: 64, height: 64, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px'}}>
-               <BookOpen size={32} color="var(--primary)" />
+            <div style={{background: 'var(--primary-light)', width: 80, height: 80, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 32px'}}>
+               <BookOpen size={40} color="var(--primary)" />
             </div>
 
             <h2 className="section-title">Writing & Daily Insights</h2>
-            <p style={{fontSize: '1.125rem', color: 'var(--text-muted)', marginBottom: '32px'}}>
+            <p style={{fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '40px', lineHeight: 1.8}}>
                 I actively write posts and share videos about <strong>mental health</strong>, <strong>parental guidance</strong>, and <strong>family dynamics</strong>. 
                 I share all my latest thoughts, tips, and Q&As directly on my social media channels.
             </p>
 
             <div className="social-buttons">
                 <a href="https://www.instagram.com/shipra_kiran_guidance_coach?utm_source=qr&igsh=ZmFvaDJ3ZG1kcGVq" target="_blank" rel="noopener noreferrer" className="btn-insta">
-                    <Instagram size={20} /> Follow on Instagram
+                    <Instagram size={24} /> Follow on Instagram
                 </a>
                 <a href="https://www.linkedin.com/in/shipra-kiran-bansal-parentingcoach" target="_blank" rel="noopener noreferrer" className="btn-linkedin">
-                    <Linkedin size={20} /> Connect on LinkedIn
+                    <Linkedin size={24} /> Connect on LinkedIn
                 </a>
             </div>
         </div>
@@ -476,16 +507,16 @@ const App = () => {
           
           <div className="grid-3">
             <div className="glass-card">
-              <h3 style={{marginBottom: '12px', color: 'var(--primary-light)'}}>Safe Space</h3>
-              <p>A supportive, strictly non-judgmental environment where you can express yourself freely.</p>
+              <h3 style={{marginBottom: '16px', fontSize: '1.5rem', color: 'var(--primary-light)'}}>Safe Space</h3>
+              <p style={{fontSize: '1.1rem', opacity: 0.9}}>A supportive, strictly non-judgmental environment where you can express yourself freely.</p>
             </div>
             <div className="glass-card">
-              <h3 style={{marginBottom: '12px', color: 'var(--primary-light)'}}>Affordable</h3>
-              <p>Truly affordable sessions because I believe every person deserves mental health support.</p>
+              <h3 style={{marginBottom: '16px', fontSize: '1.5rem', color: 'var(--primary-light)'}}>Affordable</h3>
+              <p style={{fontSize: '1.1rem', opacity: 0.9}}>Truly affordable sessions because I believe every person deserves mental health support.</p>
             </div>
             <div className="glass-card">
-              <h3 style={{marginBottom: '12px', color: 'var(--primary-light)'}}>Tailored</h3>
-              <p>No one-size-fits-all. Every session is customized to you or your family's unique needs.</p>
+              <h3 style={{marginBottom: '16px', fontSize: '1.5rem', color: 'var(--primary-light)'}}>Tailored</h3>
+              <p style={{fontSize: '1.1rem', opacity: 0.9}}>No one-size-fits-all. Every session is customized to you or your family's unique needs.</p>
             </div>
           </div>
         </div>
@@ -494,35 +525,35 @@ const App = () => {
       {/* Contact Section */}
       <section id="contact" className="section bg-white">
         <div className="container text-center">
-          <div style={{background: 'var(--primary-light)', width: 64, height: 64, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px'}}>
-            <MessageCircle size={32} color="var(--primary)" />
+          <div style={{background: 'var(--primary-light)', width: 80, height: 80, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 32px'}}>
+            <MessageCircle size={40} color="var(--primary)" />
           </div>
           <h2 className="section-title">Let's Connect</h2>
-          <p style={{fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '40px', maxWidth: '600px', margin: '0 auto 40px'}}>
+          <p style={{fontSize: '1.3rem', color: 'var(--text-muted)', marginBottom: '50px', maxWidth: '700px', margin: '0 auto 50px', lineHeight: 1.6}}>
             If this resonates with you, please reach out. A simple conversation can be the start of healing.
           </p>
           
           <div className="contact-card">
-            <h3 style={{marginBottom: '10px'}}>Book a Session</h3>
-            <p style={{marginBottom: '24px', color: 'var(--text-muted)'}}>Send me a direct message to inquire about details or schedule.</p>
+            <h3 style={{marginBottom: '12px', fontSize: '1.5rem'}}>Book a Session</h3>
+            <p style={{marginBottom: '32px', color: 'var(--text-muted)', fontSize: '1.1rem'}}>Send me a direct message to inquire about details or schedule.</p>
             
             <a href="https://wa.me/919890358011" target="_blank" rel="noopener noreferrer" className="btn-whatsapp">
-               <MessageCircle size={20} /> DM for Inquiry (WhatsApp)
+               <MessageCircle size={24} /> DM for Inquiry (WhatsApp)
             </a>
             
             <div className="social-links">
-               <a href="https://www.linkedin.com/in/shipra-kiran-bansal-parentingcoach" target="_blank" className="social-icon"><Linkedin size={20} /></a>
-               <a href="https://www.instagram.com/shipra_kiran_guidance_coach" target="_blank" className="social-icon"><Instagram size={20} /></a>
+               <a href="https://www.linkedin.com/in/shipra-kiran-bansal-parentingcoach" target="_blank" className="social-icon"><Linkedin size={24} /></a>
+               <a href="https://www.instagram.com/shipra_kiran_guidance_coach" target="_blank" className="social-icon"><Instagram size={24} /></a>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer style={{background: '#0f172a', color: '#94a3b8', padding: '32px 0', textAlign: 'center'}}>
+      <footer style={{background: '#0f172a', color: '#94a3b8', padding: '40px 0', textAlign: 'center'}}>
         <div className="container">
-          <p>&copy; {new Date().getFullYear()} Shipra Kiran Bansal. All rights reserved.</p>
-          <p style={{marginTop: '8px', fontSize: '0.8rem', opacity: 0.6}}>Designed with ❤️ for Healing</p>
+          <p style={{fontSize: '1rem'}}>&copy; {new Date().getFullYear()} Shipra Kiran Bansal. All rights reserved.</p>
+          <p style={{marginTop: '12px', fontSize: '0.9rem', opacity: 0.6}}>Designed with ❤️ for Healing</p>
         </div>
       </footer>
     </div>
