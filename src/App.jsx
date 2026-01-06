@@ -149,6 +149,7 @@ const App = () => {
       margin-bottom: 20px;
       display: inline-block;
       line-height: 1.2;
+      white-space: nowrap;
     }
     .hero-grid {
       display: grid;
@@ -393,7 +394,7 @@ const App = () => {
       .desktop-menu { display: flex; }
       .mobile-menu-btn { display: none; }
       .hero-grid { grid-template-columns: 1fr 1fr; gap: 80px; }
-      .brand-heading { font-size: 3.5rem; } /* Massive on desktop */
+      .brand-heading { font-size: 2.5rem; } /* Massive on desktop */
       .hero h1 { font-size: 2.5rem; } /* Controlled size on desktop */
       .stats-grid { grid-template-columns: 1fr 1fr 1fr; }
       .services-grid { grid-template-columns: 1fr 1fr; }
@@ -403,7 +404,7 @@ const App = () => {
     
     @media (min-width: 1200px) {
        .container { padding: 0 60px; }
-       .brand-heading { font-size: 4.5rem; } /* Even bigger on large screens */
+       .brand-heading { font-size: 3.5rem; } /* Even bigger on large screens */
        .services-grid { grid-template-columns: 1fr 1fr 1fr; }
     }
   `;
