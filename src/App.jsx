@@ -141,13 +141,14 @@ const App = () => {
       width: 100%;
     }
     .brand-heading {
-      font-size: 1.5rem;
+      font-size: 2.2rem; /* Increased significantly */
       font-weight: 800;
       color: var(--primary-dark);
       text-transform: uppercase;
       letter-spacing: 2px;
       margin-bottom: 20px;
       display: inline-block;
+      line-height: 1.2;
     }
     .hero-grid {
       display: grid;
@@ -159,24 +160,44 @@ const App = () => {
       display: inline-flex; align-items: center;
       background: var(--white); color: var(--primary-dark);
       padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 600;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
-    .hero h1 { font-size: 3rem; font-weight: 800; line-height: 1.1; margin-bottom: 24px; letter-spacing: -1px; }
     
+    /* Reduced Main Headline Size */
+    .hero h1 { 
+        font-size: 2rem; 
+        font-weight: 700; 
+        line-height: 1.3; 
+        margin-bottom: 24px; 
+        letter-spacing: -0.5px;
+        color: var(--text-main);
+    }
+    
+    /* New Bullet List Styles */
     .hero-titles {
       margin-bottom: 30px;
       color: var(--text-muted);
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 500;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      border-left: 4px solid var(--primary);
-      padding-left: 20px;
+      gap: 12px;
+    }
+    .hero-title-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .hero-bullet {
+        width: 8px;
+        height: 8px;
+        background: var(--primary);
+        border-radius: 50%;
+        flex-shrink: 0;
     }
 
-    .hero p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 40px; max-width: 650px; line-height: 1.7; }
+    .hero p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; max-width: 650px; line-height: 1.7; }
     
     .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
     .btn-secondary {
@@ -211,12 +232,11 @@ const App = () => {
     .floating-card {
       position: absolute;
       background: white;
-      padding: 16px 24px;
+      padding: 12px 20px;
       border-radius: 16px;
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
       display: flex; align-items: center; gap: 16px;
       z-index: 10;
-      white-space: nowrap;
     }
     .card-top { top: 40px; right: -40px; }
     .card-bottom { bottom: 40px; left: -40px; }
@@ -373,16 +393,17 @@ const App = () => {
       .desktop-menu { display: flex; }
       .mobile-menu-btn { display: none; }
       .hero-grid { grid-template-columns: 1fr 1fr; gap: 80px; }
-      .hero h1 { font-size: 4rem; } 
+      .brand-heading { font-size: 3.5rem; } /* Massive on desktop */
+      .hero h1 { font-size: 2.5rem; } /* Controlled size on desktop */
       .stats-grid { grid-template-columns: 1fr 1fr 1fr; }
       .services-grid { grid-template-columns: 1fr 1fr; }
       .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
-      .offer-grid { grid-template-columns: 1fr 1fr; } /* 2 cols for offer */
+      .offer-grid { grid-template-columns: 1fr 1fr; } 
     }
     
     @media (min-width: 1200px) {
        .container { padding: 0 60px; }
-       .hero h1 { font-size: 5rem; }
+       .brand-heading { font-size: 4.5rem; } /* Even bigger on large screens */
        .services-grid { grid-template-columns: 1fr 1fr 1fr; }
     }
   `;
@@ -430,22 +451,39 @@ const App = () => {
       <section className="hero">
         <div className="container hero-grid">
           <div>
-            {/* New Brand Heading */}
+            {/* New Brand Heading (Big Font) */}
             <div className="brand-heading">Shipra's Healing Circle</div>
-            <br />
             
             <div className="badge">
               <span style={{width: 8, height: 8, background: 'var(--primary)', borderRadius: '50%', marginRight: 8}}></span>
               Accepting New Clients
             </div>
             
+            {/* Tagline (Smaller Font) */}
             <h1>Navigate Life's Emotional <span style={{color: 'var(--primary)'}}>Ups & Downs</span></h1>
             
-            {/* New Formatted Titles */}
+            {/* Added Bullets */}
             <div className="hero-titles">
-              <div>Parenting and Relationship Coach</div>
-              <div>Personal and Life Coach</div>
-              <div>Certified Guidance Counsellor</div>
+                <div className="hero-title-item">
+                    <div className="hero-bullet"></div>
+                    Parent-Child Counselling
+                </div>
+                <div className="hero-title-item">
+                    <div className="hero-bullet"></div>
+                    Guidance & Life Counselling
+                </div>
+                <div className="hero-title-item">
+                    <div className="hero-bullet"></div>
+                    Behavioural Counselling
+                </div>
+                <div className="hero-title-item">
+                    <div className="hero-bullet"></div>
+                    Relationship Counselling
+                </div>
+                <div className="hero-title-item">
+                    <div className="hero-bullet"></div>
+                    Personal Counselling
+                </div>
             </div>
 
             <p>Helping individuals, couples, and parents find balance and healing. A safe, non-judgmental space for your journey.</p>
@@ -469,11 +507,24 @@ const App = () => {
                 />
              </div>
              
-             {/* Floating Cards - Navy Badge Updated */}
+             {/* Under Photo Text */}
+             <div style={{
+               textAlign: 'center', 
+               marginTop: '16px', 
+               fontStyle: 'italic', 
+               color: 'var(--text-muted)',
+               fontWeight: '500'
+             }}>
+               Certified Guidance Counsellor
+             </div>
+             
+             {/* Floating Cards */}
              <div className="floating-card card-top">
                 <div className="card-icon"><Anchor size={20} color="#0d9488"/></div>
                 <div>
-                  <div style={{fontWeight: 'bold', fontSize: '13px', color: '#0f172a'}}>Belongs to the Indian Naval Fraternity</div>
+                  <div style={{fontWeight: 'bold', fontSize: '13px', color: '#0f172a', lineHeight: '1.4'}}>
+                    Part of the<br/>Indian Naval Fraternity
+                  </div>
                 </div>
              </div>
              
@@ -497,14 +548,12 @@ const App = () => {
           </div>
           
           <div className="about-card">
-            {/* New Highlight Quote */}
             <span className="highlight-quote">"Healing begins when you're heard..."</span>
 
             <p style={{fontSize: '1.25rem', marginBottom: '20px', lineHeight: 1.8}}>
               Hello! I'm <strong style={{color: 'var(--primary)'}}>Shipra Kiran Bansal</strong>. My path has been wonderfully unique, transitioning from a disciplined background in the <strong>Indian Navy</strong> to working with <strong style={{color: 'var(--primary)'}}>reputed schools</strong>, renowned parenting platform <strong>iMumz</strong>, and scores of satisfied individuals / defence families.
             </p>
             
-            {/* New Bio Paragraph */}
             <p style={{fontSize: '1.25rem', lineHeight: 1.8}}>
               With over <strong>10 years of experience</strong> as a Counsellor & Facilitator, I’ve been helping Individuals, Couples, Children/Teens, and Parents navigate through life’s emotional ups and downs—whether it’s Relationship conflicts, Parenting challenges, Teenage issues, Anxiety, Anger, Academic stress, or Postpartum struggles.
             </p>
