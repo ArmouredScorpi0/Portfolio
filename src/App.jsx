@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   Heart, Users, Baby, Brain, Anchor, MessageCircle, 
   CheckCircle, Menu, X, Linkedin, Instagram, 
-  ChevronDown, User, ArrowRight, BookOpen 
+  ChevronDown, User, ArrowRight, BookOpen, Star, Sun, Smile, Globe, Shield
 } from 'lucide-react';
 
 const App = () => {
@@ -28,18 +28,30 @@ const App = () => {
     {
       title: "Behavioural Guidance",
       icon: <Brain size={24} color="#0d9488" />,
-      description: "Support for anxiety, anger, academic stress, and postpartum struggles.",
+      description: "Support for anxiety, anger, academic stress, and behavioral modifications.",
       details: "I help individuals of all ages process emotions like anger and anxiety, offering practical tools to manage stress and find emotional balance."
     },
     {
-      title: "1-on-1 Sessions",
+      title: "Emotional Guidance",
+      icon: <Sun size={24} color="#0d9488" />,
+      description: "Navigating through emotional turbulence to find inner peace and clarity.",
+      details: "Providing a safe space to express, understand and manage complex emotions effectively."
+    },
+    {
+      title: "Teenage Challenges",
       icon: <Users size={24} color="#0d9488" />,
-      description: "Tailored private sessions designed for your unique personal needs.",
-      details: "A completely confidential, non-judgmental space focused entirely on you. We work at your pace to achieve your personal goals."
+      description: "Bridging the gap between parents and adolescents during crucial years.",
+      details: "Addressing academic pressure, peer influence, identity crises, and communication gaps unique to the teenage years."
+    },
+    {
+      title: "Postpartum Struggles",
+      icon: <Smile size={24} color="#0d9488" />,
+      description: "Supporting new mothers through the emotional transitions of motherhood.",
+      details: "Compassionate support for postpartum blues, anxiety, and adjusting to the new identity of being a mother."
     }
   ];
 
-  // --- CSS STYLES (UPDATED FOR WIDE SCREENS) ---
+  // --- CSS STYLES ---
   const styles = `
     :root {
       --primary: #0d9488;
@@ -65,9 +77,9 @@ const App = () => {
     /* WIDE CONTAINER FIX */
     .container {
       width: 100%;
-      max-width: 1600px; /* Increased from 1150px to fill laptop screens */
+      max-width: 1600px; 
       margin: 0 auto;
-      padding: 0 40px;   /* More breathing room on sides */
+      padding: 0 40px;   
     }
 
     /* Navigation */
@@ -83,18 +95,19 @@ const App = () => {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 80px;
+      height: 90px;
     }
     .logo-area { display: flex; align-items: center; gap: 12px; }
     .logo-circle {
-      width: 40px; height: 40px;
+      width: 45px; height: 45px;
       background: var(--primary);
       color: white;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-weight: bold; font-size: 20px;
+      font-weight: bold; font-size: 22px;
+      flex-shrink: 0;
     }
-    .logo-text h1 { font-size: 1.1rem; font-weight: 700; line-height: 1.2; }
+    .logo-text h1 { font-size: 1.2rem; font-weight: 700; line-height: 1.2; }
     .logo-text p { font-size: 0.75rem; color: var(--primary); text-transform: uppercase; font-weight: 600; }
 
     .desktop-menu { display: none; gap: 32px; align-items: center; }
@@ -115,17 +128,26 @@ const App = () => {
     .mobile-menu-btn { background: none; border: none; cursor: pointer; display: block; }
     .mobile-menu {
       background: white; border-top: 1px solid #eee;
-      position: absolute; width: 100%; left: 0; top: 80px;
+      position: absolute; width: 100%; left: 0; top: 90px;
       padding: 20px; box-shadow: 0 10px 15px rgba(0,0,0,0.1);
     }
     .mobile-menu a { display: block; padding: 12px; text-decoration: none; color: var(--text-muted); font-weight: 500; }
 
     /* Hero Section */
     .hero {
-      padding: 80px 0;
+      padding: 60px 0 100px 0;
       background: linear-gradient(to bottom, var(--primary-light), var(--white));
       overflow: hidden;
       width: 100%;
+    }
+    .brand-heading {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      display: inline-block;
     }
     .hero-grid {
       display: grid;
@@ -141,6 +163,19 @@ const App = () => {
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
     .hero h1 { font-size: 3rem; font-weight: 800; line-height: 1.1; margin-bottom: 24px; letter-spacing: -1px; }
+    
+    .hero-titles {
+      margin-bottom: 30px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      font-weight: 500;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-left: 4px solid var(--primary);
+      padding-left: 20px;
+    }
+
     .hero p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 40px; max-width: 650px; line-height: 1.7; }
     
     .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
@@ -155,7 +190,7 @@ const App = () => {
     /* Image Styles */
     .image-wrapper {
       position: relative;
-      max-width: 480px; /* Bigger image for bigger screens */
+      max-width: 480px; 
       margin: 0 auto;
       width: 100%;
     }
@@ -185,7 +220,7 @@ const App = () => {
     }
     .card-top { top: 40px; right: -40px; }
     .card-bottom { bottom: 40px; left: -40px; }
-    .card-icon { background: var(--primary-light); padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .card-icon { background: var(--primary-light); padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
     /* About Section */
     .section { padding: 100px 0; }
@@ -201,9 +236,53 @@ const App = () => {
       max-width: 1000px;
       margin: 0 auto;
     }
+    .highlight-quote {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 30px;
+      display: block;
+      font-style: italic;
+    }
     .stats-grid {
       display: grid; grid-template-columns: 1fr;
       gap: 30px; margin-top: 50px;
+    }
+
+    /* What I Offer Section */
+    .offer-section {
+      background: var(--primary-light);
+      padding: 80px 0;
+    }
+    .offer-card {
+      background: white;
+      padding: 50px;
+      border-radius: 24px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 10px 30px rgba(13, 148, 136, 0.1);
+    }
+    .offer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-top: 30px;
+    }
+    .offer-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .offer-text {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .offer-subtext {
+      font-size: 1rem;
+      color: var(--text-muted);
     }
 
     /* Services Section */
@@ -293,16 +372,18 @@ const App = () => {
     @media (min-width: 768px) {
       .desktop-menu { display: flex; }
       .mobile-menu-btn { display: none; }
-      .hero-grid { grid-template-columns: 1fr 1fr; gap: 80px; } /* Wider grid gap */
-      .hero h1 { font-size: 4rem; } /* Bigger text */
+      .hero-grid { grid-template-columns: 1fr 1fr; gap: 80px; }
+      .hero h1 { font-size: 4rem; } 
       .stats-grid { grid-template-columns: 1fr 1fr 1fr; }
       .services-grid { grid-template-columns: 1fr 1fr; }
       .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+      .offer-grid { grid-template-columns: 1fr 1fr; } /* 2 cols for offer */
     }
     
     @media (min-width: 1200px) {
        .container { padding: 0 60px; }
        .hero h1 { font-size: 5rem; }
+       .services-grid { grid-template-columns: 1fr 1fr 1fr; }
     }
   `;
 
@@ -317,7 +398,7 @@ const App = () => {
             <div className="logo-circle">S</div>
             <div className="logo-text">
               <h1>Shipra Kiran Bansal</h1>
-              <p>Coach & Facilitator</p>
+              <p>Parenting & Relationship Coach</p>
             </div>
           </div>
           
@@ -349,11 +430,24 @@ const App = () => {
       <section className="hero">
         <div className="container hero-grid">
           <div>
+            {/* New Brand Heading */}
+            <div className="brand-heading">Shipra's Healing Circle</div>
+            <br />
+            
             <div className="badge">
               <span style={{width: 8, height: 8, background: 'var(--primary)', borderRadius: '50%', marginRight: 8}}></span>
               Accepting New Clients
             </div>
+            
             <h1>Navigate Life's Emotional <span style={{color: 'var(--primary)'}}>Ups & Downs</span></h1>
+            
+            {/* New Formatted Titles */}
+            <div className="hero-titles">
+              <div>Parenting and Relationship Coach</div>
+              <div>Personal and Life Coach</div>
+              <div>Certified Guidance Counsellor</div>
+            </div>
+
             <p>Helping individuals, couples, and parents find balance and healing. A safe, non-judgmental space for your journey.</p>
             <div className="hero-buttons">
               <a href="#contact" className="btn-primary">Start Your Journey</a>
@@ -363,10 +457,6 @@ const App = () => {
           
           <div className="image-wrapper">
              <div className="profile-frame">
-                {/* IMPORTANT: 
-                   1. Rename your photo to "profile.jpg"
-                   2. Put it in the "public" folder of your GitHub project
-                */}
                 <img 
                   src="/profile.jpeg" 
                   alt="Shipra Kiran Bansal" 
@@ -379,12 +469,11 @@ const App = () => {
                 />
              </div>
              
-             {/* Floating Cards */}
+             {/* Floating Cards - Navy Badge Updated */}
              <div className="floating-card card-top">
                 <div className="card-icon"><Anchor size={20} color="#0d9488"/></div>
                 <div>
-                  <div style={{fontSize: '11px', color: '#64748b', fontWeight: 'bold', letterSpacing: '0.5px'}}>BACKGROUND</div>
-                  <div style={{fontWeight: 'bold', fontSize: '14px', color: '#0f172a'}}>Navy Veteran</div>
+                  <div style={{fontWeight: 'bold', fontSize: '13px', color: '#0f172a'}}>Belongs to the Indian Naval Fraternity</div>
                 </div>
              </div>
              
@@ -408,11 +497,16 @@ const App = () => {
           </div>
           
           <div className="about-card">
+            {/* New Highlight Quote */}
+            <span className="highlight-quote">"Healing begins when you're heard..."</span>
+
             <p style={{fontSize: '1.25rem', marginBottom: '20px', lineHeight: 1.8}}>
-              Hello! I'm <strong style={{color: 'var(--primary)'}}>Shipra Kiran Bansal</strong>. My path has been wonderfully unique, transitioning from a disciplined background in the <strong>Indian Navy</strong> to working with respected schools and renowned platforms like <strong>iMumz</strong>.
+              Hello! I'm <strong style={{color: 'var(--primary)'}}>Shipra Kiran Bansal</strong>. My path has been wonderfully unique, transitioning from a disciplined background in the <strong>Indian Navy</strong> to working with <strong style={{color: 'var(--primary)'}}>reputed schools</strong>, renowned parenting platform <strong>iMumz</strong>, and scores of satisfied individuals / defence families.
             </p>
+            
+            {/* New Bio Paragraph */}
             <p style={{fontSize: '1.25rem', lineHeight: 1.8}}>
-              With over <strong style={{color: 'var(--primary)'}}>10 years of experience</strong> as a Counsellor & Facilitator, these diverse roles have deepened my understanding of the emotional and behavioral challenges people face in today's fast-paced world.
+              With over <strong>10 years of experience</strong> as a Counsellor & Facilitator, I’ve been helping Individuals, Couples, Children/Teens, and Parents navigate through life’s emotional ups and downs—whether it’s Relationship conflicts, Parenting challenges, Teenage issues, Anxiety, Anger, Academic stress, or Postpartum struggles.
             </p>
             
             <div className="stats-grid">
@@ -443,7 +537,7 @@ const App = () => {
             <h2 className="section-title">How I Can Help</h2>
             <div className="divider"></div>
             <p style={{marginBottom: '60px', color: 'var(--text-muted)', fontSize: '1.2rem'}}>
-              I offer specialized guidance for individuals, couples, children, teens, and parents tailored to your unique needs.
+              I offer <strong style={{color: 'var(--primary-dark)'}}>specialized guidance</strong> for <strong style={{color: 'var(--primary-dark)'}}>individuals</strong>, <strong style={{color: 'var(--primary-dark)'}}>couples</strong>, <strong style={{color: 'var(--primary-dark)'}}>children</strong>, <strong style={{color: 'var(--primary-dark)'}}>teens</strong>, and <strong style={{color: 'var(--primary-dark)'}}>parents</strong> tailored to your unique needs.
             </p>
           </div>
 
@@ -453,7 +547,7 @@ const App = () => {
                 <div className="service-header">
                   <div className="service-title-group">
                     <div className="icon-box">{service.icon}</div>
-                    <h3 style={{fontSize: '1.5rem', fontWeight: 'bold'}}>{service.title}</h3>
+                    <h3 style={{fontSize: '1.4rem', fontWeight: 'bold'}}>{service.title}</h3>
                   </div>
                   <ChevronDown size={24} style={{transform: activeAccordion === index ? 'rotate(180deg)' : 'rotate(0)', transition: '0.3s'}} />
                 </div>
@@ -470,6 +564,30 @@ const App = () => {
                 <span style={{color: 'var(--primary)', fontWeight: 'bold'}}>Note:</span> I do not prescribe medicines. My approach is purely therapeutic and behavioral.
              </div>
           </div>
+        </div>
+      </section>
+
+      {/* NEW SECTION: What I Offer */}
+      <section className="offer-section">
+        <div className="container">
+           <div className="offer-card">
+              <h2 className="section-title" style={{fontSize: '2rem'}}>What I Offer</h2>
+              <div style={{height: 4, width: 60, background: 'var(--primary)', margin: '0 auto 30px', borderRadius: 2}}></div>
+              
+              {/* Refined Offer Grid */}
+              <div className="offer-grid">
+                  <div className="offer-item">
+                     <Globe color="var(--primary)" size={32} />
+                     <div className="offer-text">Online & In-Person Sessions</div>
+                     <div className="offer-subtext">Global reach via video calls or local face-to-face meetings.</div>
+                  </div>
+                  <div className="offer-item">
+                     <Shield color="var(--primary)" size={32} />
+                     <div className="offer-text">Tailored 1-on-1 Guidance</div>
+                     <div className="offer-subtext">Confidential, personalized support for your unique situation.</div>
+                  </div>
+              </div>
+           </div>
         </div>
       </section>
 
@@ -552,7 +670,7 @@ const App = () => {
       {/* Footer */}
       <footer style={{background: '#0f172a', color: '#94a3b8', padding: '40px 0', textAlign: 'center'}}>
         <div className="container">
-          <p style={{fontSize: '1rem'}}>&copy; {new Date().getFullYear()} Shipra Kiran Bansal. All rights reserved.</p>
+          <p style={{fontSize: '1rem'}}>&copy; {new Date().getFullYear()} Shipra's Healing Circle. All rights reserved.</p>
           <p style={{marginTop: '12px', fontSize: '0.9rem', opacity: 0.6}}>Designed with ❤️ for Healing</p>
         </div>
       </footer>
