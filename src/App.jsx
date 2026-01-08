@@ -706,7 +706,7 @@ const App = () => {
             <p style={{marginBottom: '32px', color: 'var(--text-muted)', fontSize: '1.1rem'}}>Send me a direct message to inquire about details or schedule.</p>
             
             <a href="https://wa.me/919890358011" target="_blank" rel="noopener noreferrer" className="btn-whatsapp">
-               <MessageCircle size={24} /> DM for Inquiry (WhatsApp)
+               <MessageCircle size={24} /> DM +91 9890358011
             </a>
             
             <div className="social-links">
