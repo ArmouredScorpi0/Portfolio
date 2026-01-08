@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   Heart, Users, Baby, Brain, Anchor, MessageCircle, 
   CheckCircle, Menu, X, Linkedin, Instagram, 
-  ChevronDown, User, ArrowRight, BookOpen, Star, Sun, Smile, Globe, Shield
+  ChevronDown, User, ArrowRight, BookOpen, Star, Sun, Smile, Globe, Shield, Mic
 } from 'lucide-react';
 
 const App = () => {
@@ -51,6 +51,21 @@ const App = () => {
     }
   ];
 
+  const podcasts = [
+    {
+      id: "m6biILIheqI",
+      title: "The Emotional Crisis of Gen Z Teens",
+      desc: "A deep dive into why today's teens feel lonely despite being connected, and how parents can bridge the emotional gap.",
+      link: "https://youtu.be/m6biILIheqI?si=l_rrlug8xZ1e_HfO"
+    },
+    {
+      id: "cRP-Ke00x7s",
+      title: "Relationship Mistakes That Kill Love",
+      desc: "Discussing the silent habits that erode intimacy and how to build a conscious, lasting partnership.",
+      link: "https://youtu.be/cRP-Ke00x7s?si=TeJOZfBL5I2sMxek"
+    }
+  ];
+
   // --- CSS STYLES ---
   const styles = `
     :root {
@@ -79,7 +94,7 @@ const App = () => {
       width: 100%;
       max-width: 1600px; 
       margin: 0 auto;
-      padding: 0 40px;   
+      padding: 0 40px;    
     }
 
     /* Navigation */
@@ -141,7 +156,7 @@ const App = () => {
       width: 100%;
     }
     .brand-heading {
-      font-size: 2.2rem; /* Increased significantly */
+      font-size: 2.2rem; 
       font-weight: 800;
       color: var(--primary-dark);
       text-transform: uppercase;
@@ -165,7 +180,6 @@ const App = () => {
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
     
-    /* Reduced Main Headline Size */
     .hero h1 { 
         font-size: 2rem; 
         font-weight: 700; 
@@ -175,7 +189,6 @@ const App = () => {
         color: var(--text-main);
     }
     
-    /* New Bullet List Styles */
     .hero-titles {
       margin-bottom: 30px;
       color: var(--text-muted);
@@ -354,6 +367,35 @@ const App = () => {
       transition: transform 0.2s;
     }
 
+    /* Podcast Section */
+    .podcast-grid {
+      display: grid; grid-template-columns: 1fr; gap: 40px;
+    }
+    .podcast-card {
+      background: white; border-radius: 24px; overflow: hidden;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0; transition: 0.3s;
+      display: block; text-decoration: none; color: inherit;
+    }
+    .podcast-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+    .thumb-wrapper {
+      position: relative; padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      background: #f1f5f9;
+    }
+    .thumb-img {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+    }
+    .play-icon {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 60px; height: 60px; background: rgba(0,0,0,0.7);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      color: white; backdrop-filter: blur(4px);
+    }
+    .podcast-content { padding: 24px; }
+    .podcast-tag { font-size: 0.85rem; color: var(--primary); font-weight: 700; text-transform: uppercase; margin-bottom: 8px; display: block; }
+    .podcast-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; line-height: 1.4; color: var(--text-main); }
+    .podcast-desc { font-size: 1rem; color: var(--text-muted); }
+
     /* Approach */
     .approach { background: var(--primary-dark); color: white; position: relative; overflow: hidden; }
     .grid-3 { display: grid; grid-template-columns: 1fr; gap: 32px; }
@@ -394,17 +436,18 @@ const App = () => {
       .desktop-menu { display: flex; }
       .mobile-menu-btn { display: none; }
       .hero-grid { grid-template-columns: 1fr 1fr; gap: 80px; }
-      .brand-heading { font-size: 2.5rem; } /* Massive on desktop */
-      .hero h1 { font-size: 2.5rem; } /* Controlled size on desktop */
+      .brand-heading { font-size: 2.5rem; } 
+      .hero h1 { font-size: 2.5rem; }
       .stats-grid { grid-template-columns: 1fr 1fr 1fr; }
       .services-grid { grid-template-columns: 1fr 1fr; }
       .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
       .offer-grid { grid-template-columns: 1fr 1fr; } 
+      .podcast-grid { grid-template-columns: 1fr 1fr; }
     }
     
     @media (min-width: 1200px) {
        .container { padding: 0 60px; }
-       .brand-heading { font-size: 3.5rem; } /* Even bigger on large screens */
+       .brand-heading { font-size: 3.5rem; }
        .services-grid { grid-template-columns: 1fr 1fr 1fr; }
     }
   `;
@@ -428,6 +471,7 @@ const App = () => {
             <a href="#about">About</a>
             <a href="#services">Services</a>
             <a href="#writing">Writing</a>
+            <a href="#podcasts">Podcasts</a>
             <a href="#approach">My Approach</a>
             <a href="#contact" className="btn-primary">Book a Session</a>
           </div>
@@ -442,6 +486,7 @@ const App = () => {
             <a href="#about" onClick={toggleMenu}>About Me</a>
             <a href="#services" onClick={toggleMenu}>Services</a>
             <a href="#writing" onClick={toggleMenu}>Writing</a>
+            <a href="#podcasts" onClick={toggleMenu}>Podcasts</a>
             <a href="#approach" onClick={toggleMenu}>My Approach</a>
             <a href="#contact" onClick={toggleMenu} style={{color: 'var(--primary)'}}>Book a Session</a>
           </div>
@@ -662,6 +707,45 @@ const App = () => {
                     <Linkedin size={24} /> Connect on LinkedIn
                 </a>
             </div>
+        </div>
+      </section>
+
+      {/* NEW SECTION: Podcasts */}
+      <section id="podcasts" className="section" style={{background: '#f1f5f9'}}>
+        <div className="container">
+          <div className="text-center">
+            <div style={{background: 'var(--primary-light)', width: 80, height: 80, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 32px'}}>
+               <Mic size={40} color="var(--primary)" />
+            </div>
+            <h2 className="section-title">Podcasts & Discussions</h2>
+            <div className="divider"></div>
+            <p style={{fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '50px', maxWidth: '800px', margin: '0 auto 50px', lineHeight: 1.8}}>
+               Join me on <strong>The Hitesh Valkundakar Show</strong> where we dive deep into the pressing issues facing today's families. 
+               From the emotional crisis of Gen Z teens to the silent habits that erode relationships, these episodes offer honest conversations and actionable insights.
+            </p>
+          </div>
+
+          <div className="podcast-grid">
+            {podcasts.map((pod, index) => (
+              <a key={index} href={pod.link} target="_blank" rel="noopener noreferrer" className="podcast-card">
+                <div className="thumb-wrapper">
+                  <img 
+                    src={`https://img.youtube.com/vi/${pod.id}/maxresdefault.jpg`} 
+                    alt={pod.title} 
+                    className="thumb-img"
+                  />
+                  <div className="play-icon">
+                    <ArrowRight size={32} />
+                  </div>
+                </div>
+                <div className="podcast-content">
+                  <span className="podcast-tag">Featured Episode</span>
+                  <h3 className="podcast-title">{pod.title}</h3>
+                  <p className="podcast-desc">{pod.desc}</p>
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
