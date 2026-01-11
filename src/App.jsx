@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Heart, Users, Baby, Brain, Anchor, MessageCircle, 
   CheckCircle, Menu, X, Linkedin, Instagram, 
-  ChevronDown, User, ArrowRight, BookOpen, Star, Sun, Smile, Globe, Shield, Mic
+  ChevronDown, ArrowRight, BookOpen, Sun, Smile, Globe, Shield, Mic, Quote, ChevronLeft, ChevronRight, User
 } from 'lucide-react';
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeAccordion, setActiveAccordion] = useState(null);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  
+  // State to handle broken images safely
+  const [profileImgError, setProfileImgError] = useState(false);
+  const [testimonialImgError, setTestimonialImgError] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleAccordion = (index) => setActiveAccordion(activeAccordion === index ? null : index);
@@ -65,6 +70,130 @@ const App = () => {
       link: "https://youtu.be/cRP-Ke00x7s?si=TeJOZfBL5I2sMxek"
     }
   ];
+
+  const testimonials = [
+    {
+      type: "named",
+      content: "Ms.Shipra Kiran is an exceptionally compassionate and a highly dedicated guidance counselor whose unwavering work ethic and wisdom have profoundly impacted both my son's life and mine. Her genuine presence, patience, and commitment to truly helping the children and parents shine through in all her interactions, thus, creating trust and healing, alongwith a meaningful and lasting growth.",
+      label: "Ritu Negi",
+      location: "Head Co-ordinate & Senior Educator (Bangalore)",
+      image: "/Ritu.jpeg"
+    },
+    {
+      type: "named",
+      content: "Mrs. Shipra Kiran has a rare gift for truly feeling what her clients experience, offering deep warmth, understanding, and support. She creates a safe, comforting space where people feel genuinely seen and valued. In her presence, hope and inner strength are restored. For compassionate life coaching and heartfelt guidance, she’s an exceptional choice.",
+      label: "Shaifaali Poonam",
+      location: "Mentor, Guide & Educator (Faridabad)",
+      image: "/Shaifaali.jpeg"
+    },
+    {
+      type: "named",
+      content: "Ms. Shipra is an exceptional guidance counsellor who truly cares about children's well-being and success. Her empathetic approach and insightful advice have helped me navigate challenges and discover my strengths. I appreciate how she takes the time to understand each child's unique needs and provides personalized support. Her guidance has been instrumental in shaping my child's academic and personal growth.",
+      label: "Soumi Kesh",
+      location: "Senior Faculty Member & Master Teacher (Dubai)",
+      image: "/Soumi.jpeg"
+    },
+    {
+      type: "named",
+      content: "Mrs.Shipra Kiran has the skill of understanding and empathising with a client's feelings and effectively making them feel heard,validated and safe.She is the right person to approach as a Life Coach or as a Guidance Counselor. Best of luck in your endeavour.",
+      label: "Elizabeth Valsan",
+      location: "Ex-Principal & Academic Director of Shree Niketan Child Care & Education Centre ( Goa )",
+      image: "/Elizabeth.jpeg",
+      imageStyle: { objectPosition: 'center' } // Specific adjustment for Elizabeth
+    },
+    {
+      type: "named",
+      content: "During one of the most challenging phases of my life, Shipra Kiran Bansal became a source of strength and clarity for me. Her guidance counselling sessions were filled with empathy, patience, and deep understanding. She listened without judgment, helped me reframe my thoughts, and gently guided me toward practical solutions. I am truly grateful for her support and guidance.",
+      label: "Sanchit Goyal",
+      location: "Consultant, BCG | Alumnus, IIT Kanpur",
+      image: "/Sanchit.jpeg"
+    },
+    {
+      type: "named",
+      content: "The counselling sessions were extremely helpful for my elder daughter. She gained a clear understanding of her interests, strengths, and possible career paths. Shipra Kiran guided her with immense patience, empathy, and deep insight, which greatly boosted her confidence and self-belief. Her gentle yet structured approach made my daughter feel heard, supported, and motivated throughout the journey.",
+      label: "Anusuya",
+      location: "Dedicated Educator & Teacher (30+ Years Exp.)",
+      image: "/Anusuya.jpeg"
+    },
+    {
+      type: "anonymous",
+      content: "Working with Shipra Kiran Bansal has been a truly transformative experience for our relationship. Her guidance counselling sessions provided us with a safe, non-judgmental space to express our thoughts and emotions openly. With deep empathy, patience, and clarity, she helped us understand each other better and navigate our challenges with maturity and compassion.",
+      label: "Anonymous",
+      location: "Bangalore"
+    },
+    {
+      type: "anonymous",
+      content: "Shipra has truly pushed and challenged me to reconnect with who I once was—my passions and interests. We are now working together on setting new goals, and I feel a renewed enthusiasm for life. I’m beginning to look forward to what lies ahead and see it all as an adventure.",
+      label: "Anonymous",
+      location: "Bangalore"
+    },
+    {
+      type: "anonymous",
+      content: "Shipra is an exceptionally compassionate and insightful life coach who brings both warmth and clarity to every interaction. Her caring, positive approach creates a safe and trusting space where one can openly explore a wide range of life challenges. With her thoughtful guidance, I gained clarity, emotional strength, and a renewed sense of direction.",
+      label: "Anonymous",
+      location: "Kolkata"
+    },
+    {
+      type: "anonymous",
+      content: "My postpartum journey had been a struggle, and I truly needed the right guidance and emotional support. Throughout the session, I felt genuinely heard and supported. After our discussion, I felt more confident, relaxed, and motivated to move forward. Shipra’s commitment to making the session meaningful was evident.",
+      label: "Anonymous",
+      location: "Bangalore"
+    },
+    {
+      type: "anonymous",
+      content: "It was wonderful speaking with Shipra. I’m so grateful to have found her—just sharing and venting during the session helped lift a huge emotional weight off me. Her presence made me feel heard, understood, and lighter.",
+      label: "Anonymous",
+      location: "Hyderabad"
+    },
+    {
+      type: "anonymous",
+      content: "The session with Shipra was extremely clear and meaningful. I felt highly motivated after our discussion and truly supported throughout. She helped me boost my positivity, especially while navigating this phase and managing my mood swings. For me, it was a truly fruitful and empowering experience.",
+      label: "Anonymous",
+      location: "Ranchi"
+    },
+    {
+      type: "anonymous",
+      content: "I’m deeply grateful to Shipra for her constant motivation and inspiration throughout my postpartum journey. The way she listens and guides with such care feels heartfelt—more like a trusted friend than just a coach. Her kindness, reassurance, and guidance have made a meaningful and lasting difference in my life.",
+      label: "Anonymous",
+      location: "Pune"
+    },
+    {
+      type: "anonymous",
+      content: "The parenting session with Shipra was extremely clear and insightful. I received the guidance I needed and felt supported throughout the discussion. Her commitment to making the session truly valuable was evident, and it helped me feel motivated and confident about my parenting journey.",
+      label: "Anonymous",
+      location: "Goa"
+    },
+    {
+      type: "anonymous",
+      content: "During a phase filled with emotional ups and downs, I felt genuinely heard and supported throughout our discussion. Her guidance helped me regain my positivity and confidence while managing my mood swings. For me, it was a deeply reassuring, fruitful, and empowering experience.",
+      label: "Anonymous",
+      location: "Delhi"
+    }
+  ];
+
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  // Reset testimonial image error when the slide changes
+  useEffect(() => {
+    setTestimonialImgError(false);
+  }, [currentTestimonial]);
+
+  // Auto-play for testimonials - Resets on ANY change to currentTestimonial (manual or auto)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 6000); // Rotate every 6 seconds
+
+    // Clear the timer whenever currentTestimonial changes (user interaction or auto-scroll)
+    // ensuring a fresh 6 seconds before the next move
+    return () => clearInterval(timer);
+  }, [currentTestimonial]); // Dependency added here
 
   // --- CSS STYLES ---
   const styles = `
@@ -345,6 +474,93 @@ const App = () => {
     }
     .service-details.open { max-height: 300px; opacity: 1; margin-top: 24px; padding-top: 24px; border-top: 1px solid #f1f5f9; }
 
+    /* Testimonials Section */
+    .testimonials-section {
+      background: white;
+      padding: 100px 0;
+      overflow: hidden;
+    }
+    .testimonial-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .testimonial-card {
+      background: var(--bg-off-white);
+      border-radius: 32px;
+      padding: 60px;
+      text-align: center;
+      box-shadow: 0 10px 20px -5px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+      transition: all 0.5s ease-in-out;
+    }
+    .testimonial-content {
+      font-size: 1.35rem;
+      color: var(--text-main);
+      font-style: italic;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      text-align: left;
+    }
+    .author-avatar {
+      width: 80px; height: 80px; /* Increased size from 60px to 80px */
+      background: #e2e8f0;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .author-avatar img {
+      width: 100%; height: 100%; 
+      object-fit: cover;
+      object-position: top; /* This forces the focus to the top of the image */
+    }
+    .author-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .author-info h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+    .author-info span {
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border: 1px solid #e2e8f0;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      transition: 0.2s;
+      z-index: 10;
+      color: var(--text-muted);
+    }
+    .carousel-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .btn-prev { left: -25px; }
+    .btn-next { right: -25px; }
+
     /* Writing Section */
     .writing-box {
       max-width: 900px; margin: 0 auto; text-center;
@@ -443,6 +659,8 @@ const App = () => {
       .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
       .offer-grid { grid-template-columns: 1fr 1fr; } 
       .podcast-grid { grid-template-columns: 1fr 1fr; }
+      .btn-prev { left: -60px; }
+      .btn-next { right: -60px; }
     }
     
     @media (min-width: 1200px) {
@@ -470,6 +688,7 @@ const App = () => {
           <div className="desktop-menu">
             <a href="#about">About</a>
             <a href="#services">Services</a>
+            <a href="#testimonials">Testimonials</a>
             <a href="#writing">Writing</a>
             <a href="#podcasts">Podcasts</a>
             <a href="#approach">My Approach</a>
@@ -485,6 +704,7 @@ const App = () => {
           <div className="mobile-menu">
             <a href="#about" onClick={toggleMenu}>About Me</a>
             <a href="#services" onClick={toggleMenu}>Services</a>
+            <a href="#testimonials" onClick={toggleMenu}>Testimonials</a>
             <a href="#writing" onClick={toggleMenu}>Writing</a>
             <a href="#podcasts" onClick={toggleMenu}>Podcasts</a>
             <a href="#approach" onClick={toggleMenu}>My Approach</a>
@@ -541,16 +761,19 @@ const App = () => {
           
           <div className="image-wrapper">
              <div className="profile-frame">
-                <img 
-                  src="/profile.jpeg" 
-                  alt="Shipra Kiran Bansal" 
-                  className="profile-img"
-                  onError={(e) => {
-                    e.target.onerror = null; 
-                    e.target.style.display = 'none';
-                    e.target.parentNode.innerHTML += '<div style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#94a3b8; text-align:center; padding:20px;"><span style="font-size: 40px; margin-bottom:10px;">👤</span><p style="font-size:14px"><strong>Photo Missing</strong><br>Put <code>profile.jpg</code> in the <code>public</code> folder</p></div>';
-                  }}
-                />
+                {!profileImgError ? (
+                    <img 
+                      src="/profile.jpeg" 
+                      alt="Shipra Kiran Bansal" 
+                      className="profile-img"
+                      onError={() => setProfileImgError(true)}
+                    />
+                ) : (
+                    <div style={{height:'100%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', color:'#94a3b8', textAlign:'center', padding:'20px'}}>
+                        <span style={{fontSize: '40px', marginBottom:'10px'}}>👤</span>
+                        <p style={{fontSize:'14px'}}><strong>Photo Missing</strong><br/>Put <code>profile.jpeg</code> in the <code>public</code> folder</p>
+                    </div>
+                )}
              </div>
              
              {/* Under Photo Text */}
@@ -683,6 +906,76 @@ const App = () => {
                   </div>
               </div>
            </div>
+        </div>
+      </section>
+
+      {/* NEW SECTION: Testimonials */}
+      <section id="testimonials" className="testimonials-section">
+        <div className="container">
+          <div className="text-center">
+            <div style={{background: 'var(--primary-light)', width: 80, height: 80, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 32px'}}>
+               <Quote size={40} color="var(--primary)" />
+            </div>
+            <h2 className="section-title">Client Stories</h2>
+            <div className="divider"></div>
+            <p style={{fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '50px', maxWidth: '800px', margin: '0 auto 50px', lineHeight: 1.8}}>
+               The people I work with hold a special place in my heart. I journey with them through understanding, empathy, and a strong professional bond. This connection helps me truly see them and offer a coaching experience that feels personal, empowering, and transformative.
+            </p>
+          </div>
+
+          <div className="testimonial-wrapper">
+             <button className="carousel-btn btn-prev" onClick={prevTestimonial}>
+                <ChevronLeft size={24} />
+             </button>
+             
+             <div className="testimonial-card">
+                <div style={{marginBottom: 20, display: 'flex', justifyContent: 'center'}}>
+                    <Quote size={40} color="#e2e8f0" fill="#e2e8f0" />
+                </div>
+                <p className="testimonial-content">
+                  "{testimonials[currentTestimonial].content}"
+                </p>
+                
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <div className="testimonial-author">
+                       <div className="author-avatar">
+                          {testimonials[currentTestimonial].image && !testimonialImgError ? (
+                             <img 
+                                src={testimonials[currentTestimonial].image} 
+                                alt={testimonials[currentTestimonial].label} 
+                                style={testimonials[currentTestimonial].imageStyle || {}} // Apply specific style if exists
+                                onError={() => setTestimonialImgError(true)}
+                             />
+                          ) : (
+                             <User size={24} />
+                          )}
+                       </div>
+                       <div className="author-info">
+                          <h4>{testimonials[currentTestimonial].label}</h4>
+                          <span>{testimonials[currentTestimonial].location}</span>
+                       </div>
+                    </div>
+                </div>
+             </div>
+
+             <button className="carousel-btn btn-next" onClick={nextTestimonial}>
+                <ChevronRight size={24} />
+             </button>
+
+             <div style={{display: 'flex', justifyContent: 'center', gap: 8, marginTop: 30}}>
+                {testimonials.map((_, idx) => (
+                  <button 
+                    key={idx}
+                    onClick={() => setCurrentTestimonial(idx)}
+                    style={{
+                      width: 10, height: 10, borderRadius: '50%', border: 'none', cursor: 'pointer',
+                      background: idx === currentTestimonial ? 'var(--primary)' : '#cbd5e1',
+                      transition: '0.3s'
+                    }}
+                  />
+                ))}
+             </div>
+          </div>
         </div>
       </section>
 
