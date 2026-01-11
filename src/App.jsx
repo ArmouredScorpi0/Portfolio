@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Heart, Users, Baby, Brain, Anchor, MessageCircle, 
   CheckCircle, Menu, X, Linkedin, Instagram, 
-  ChevronDown, ArrowRight, BookOpen, Sun, Smile, Globe, Shield, Mic, Quote, ChevronLeft, ChevronRight, User
+  ChevronDown, ArrowRight, BookOpen, Sun, Smile, Globe, Shield, Mic, Quote, ChevronLeft, ChevronRight, User, Mail
 } from 'lucide-react';
 
 const App = () => {
@@ -98,7 +98,7 @@ const App = () => {
       content: "Mrs.Shipra Kiran has the skill of understanding and empathising with a client's feelings and effectively making them feel heard,validated and safe.She is the right person to approach as a Life Coach or as a Guidance Counselor. Best of luck in your endeavour.",
       label: "Elizabeth Valsan",
       location: "Ex-Principal & Academic Director of Shree Niketan Child Care & Education Centre ( Goa )",
-      image: "/Elizabeth.jpeg",
+      image: "/Elizabeth.jpg",
       imageStyle: { objectPosition: 'center' } // Specific adjustment for Elizabeth
     },
     {
@@ -449,6 +449,10 @@ const App = () => {
     }
 
     /* Services Section */
+    .services-bg-fix {
+        background-color: var(--bg-off-white); /* Ensure this matches body bg */
+        width: 100%;
+    }
     .services-grid {
       display: grid; grid-template-columns: 1fr;
       gap: 32px;
@@ -849,7 +853,7 @@ const App = () => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="section">
+      <section id="services" className="section services-bg-fix">
         <div className="container">
           <div className="text-center">
             <h2 className="section-title">How I Can Help</h2>
@@ -1089,6 +1093,7 @@ const App = () => {
             <div className="social-links">
                <a href="https://www.linkedin.com/in/shipra-kiran-bansal-parentingcoach" target="_blank" className="social-icon"><Linkedin size={24} /></a>
                <a href="https://www.instagram.com/shipra_kiran_guidance_coach" target="_blank" className="social-icon"><Instagram size={24} /></a>
+               <a href="mailto:shiprakiran75@gmail.com" className="social-icon"><Mail size={24} /></a>
             </div>
           </div>
         </div>
