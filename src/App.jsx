@@ -98,7 +98,7 @@ const App = () => {
       content: "Mrs.Shipra Kiran has the skill of understanding and empathising with a client's feelings and effectively making them feel heard,validated and safe.She is the right person to approach as a Life Coach or as a Guidance Counselor. Best of luck in your endeavour.",
       label: "Elizabeth Valsan",
       location: "Ex-Principal & Academic Director of Shree Niketan Child Care & Education Centre ( Goa )",
-      image: "/Elizabeth.jpg",
+      image: "/Elizabeth.jpeg",
       imageStyle: { objectPosition: 'center' } // Specific adjustment for Elizabeth
     },
     {
