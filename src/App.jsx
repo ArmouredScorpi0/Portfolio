@@ -1,18 +1,53 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { 
   Heart, Users, Baby, Brain, Anchor, MessageCircle, 
-  CheckCircle, Menu, X, Linkedin, Instagram, 
-  ChevronDown, ArrowRight, BookOpen, Sun, Smile, Globe, Shield, Mic, Quote, ChevronLeft, ChevronRight, User, Mail
+  CheckCircle, Menu, X, Linkedin, Instagram, Facebook,
+  ChevronDown, ArrowRight, BookOpen, Sun, Smile, Globe, Shield, Mic, Quote, User, Mail
 } from 'lucide-react';
+
+// Sub-component for individual testimonial cards to handle image errors independently
+const TestimonialCard = ({ data }) => {
+  const [imgError, setImgError] = useState(false);
+
+  return (
+    <div className="testimonial-card">
+      <div style={{marginBottom: 20, display: 'flex', justifyContent: 'center'}}>
+          <Quote size={40} color="#e2e8f0" fill="#e2e8f0" />
+      </div>
+      <p className="testimonial-content">
+        "{data.content}"
+      </p>
+      
+      <div style={{display: 'flex', justifyContent: 'center'}}>
+          <div className="testimonial-author">
+             <div className="author-avatar">
+                {data.image && !imgError ? (
+                   <img 
+                      src={data.image} 
+                      alt={data.label} 
+                      style={data.imageStyle || {}} 
+                      onError={() => setImgError(true)}
+                   />
+                ) : (
+                   <User size={24} />
+                )}
+             </div>
+             <div className="author-info">
+                <h4>{data.label}</h4>
+                <span>{data.location}</span>
+             </div>
+          </div>
+      </div>
+    </div>
+  );
+};
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeAccordion, setActiveAccordion] = useState(null);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   
-  // State to handle broken images safely
+  // State to handle broken images safely for profile
   const [profileImgError, setProfileImgError] = useState(false);
-  const [testimonialImgError, setTestimonialImgError] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleAccordion = (index) => setActiveAccordion(activeAccordion === index ? null : index);
@@ -99,7 +134,7 @@ const App = () => {
       label: "Elizabeth Valsan",
       location: "Ex-Principal & Academic Director of Shree Niketan Child Care & Education Centre ( Goa )",
       image: "/Elizabeth.jpeg",
-      imageStyle: { objectPosition: 'center' } // Specific adjustment for Elizabeth
+      imageStyle: { objectPosition: 'center' }
     },
     {
       type: "named",
@@ -170,30 +205,6 @@ const App = () => {
       location: "Delhi"
     }
   ];
-
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
-
-  // Reset testimonial image error when the slide changes
-  useEffect(() => {
-    setTestimonialImgError(false);
-  }, [currentTestimonial]);
-
-  // Auto-play for testimonials - Resets on ANY change to currentTestimonial (manual or auto)
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 6000); // Rotate every 6 seconds
-
-    // Clear the timer whenever currentTestimonial changes (user interaction or auto-scroll)
-    // ensuring a fresh 6 seconds before the next move
-    return () => clearInterval(timer);
-  }, [currentTestimonial]); // Dependency added here
 
   // --- CSS STYLES ---
   const styles = `
@@ -485,21 +496,28 @@ const App = () => {
       overflow: hidden;
     }
     .testimonial-wrapper {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
-      position: relative;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
     }
     .testimonial-card {
       background: var(--bg-off-white);
       border-radius: 32px;
-      padding: 60px;
+      padding: 40px;
       text-align: center;
-      box-shadow: 0 10px 20px -5px rgba(0,0,0,0.05);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
       border: 1px solid #e2e8f0;
-      transition: all 0.5s ease-in-out;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .testimonial-content {
-      font-size: 1.35rem;
+      font-size: 1.1rem;
       color: var(--text-main);
       font-style: italic;
       margin-bottom: 30px;
@@ -513,7 +531,7 @@ const App = () => {
       text-align: left;
     }
     .author-avatar {
-      width: 80px; height: 80px; /* Increased size from 60px to 80px */
+      width: 70px; height: 70px; 
       background: #e2e8f0;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
@@ -524,7 +542,7 @@ const App = () => {
     .author-avatar img {
       width: 100%; height: 100%; 
       object-fit: cover;
-      object-position: top; /* This forces the focus to the top of the image */
+      object-position: top;
     }
     .author-info {
         display: flex;
@@ -538,32 +556,10 @@ const App = () => {
       margin-bottom: 2px;
     }
     .author-info span {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--primary);
       font-weight: 600;
     }
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: white;
-      border: 1px solid #e2e8f0;
-      width: 50px; height: 50px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-      transition: 0.2s;
-      z-index: 10;
-      color: var(--text-muted);
-    }
-    .carousel-btn:hover {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-    .btn-prev { left: -25px; }
-    .btn-next { right: -25px; }
 
     /* Writing Section */
     .writing-box {
@@ -578,10 +574,17 @@ const App = () => {
       text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 10px; font-size: 1.1rem;
       transition: transform 0.2s;
     }
-    .btn-insta:hover, .btn-linkedin:hover { transform: scale(1.05); }
+    .btn-insta:hover, .btn-linkedin:hover, .btn-facebook:hover { transform: scale(1.05); }
 
     .btn-linkedin {
       background: #0077b5;
+      color: white; padding: 16px 40px; border-radius: 50px;
+      text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 10px; font-size: 1.1rem;
+      transition: transform 0.2s;
+    }
+    
+    .btn-facebook {
+      background: #1877F2;
       color: white; padding: 16px 40px; border-radius: 50px;
       text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 10px; font-size: 1.1rem;
       transition: transform 0.2s;
@@ -663,8 +666,10 @@ const App = () => {
       .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
       .offer-grid { grid-template-columns: 1fr 1fr; } 
       .podcast-grid { grid-template-columns: 1fr 1fr; }
-      .btn-prev { left: -60px; }
-      .btn-next { right: -60px; }
+      
+      .testimonials-grid {
+        grid-template-columns: 1fr 1fr; /* 2 columns on desktop */
+      }
     }
     
     @media (min-width: 1200px) {
@@ -928,56 +933,10 @@ const App = () => {
           </div>
 
           <div className="testimonial-wrapper">
-             <button className="carousel-btn btn-prev" onClick={prevTestimonial}>
-                <ChevronLeft size={24} />
-             </button>
-             
-             <div className="testimonial-card">
-                <div style={{marginBottom: 20, display: 'flex', justifyContent: 'center'}}>
-                    <Quote size={40} color="#e2e8f0" fill="#e2e8f0" />
-                </div>
-                <p className="testimonial-content">
-                  "{testimonials[currentTestimonial].content}"
-                </p>
-                
-                <div style={{display: 'flex', justifyContent: 'center'}}>
-                    <div className="testimonial-author">
-                       <div className="author-avatar">
-                          {testimonials[currentTestimonial].image && !testimonialImgError ? (
-                             <img 
-                                src={testimonials[currentTestimonial].image} 
-                                alt={testimonials[currentTestimonial].label} 
-                                style={testimonials[currentTestimonial].imageStyle || {}} // Apply specific style if exists
-                                onError={() => setTestimonialImgError(true)}
-                             />
-                          ) : (
-                             <User size={24} />
-                          )}
-                       </div>
-                       <div className="author-info">
-                          <h4>{testimonials[currentTestimonial].label}</h4>
-                          <span>{testimonials[currentTestimonial].location}</span>
-                       </div>
-                    </div>
-                </div>
-             </div>
-
-             <button className="carousel-btn btn-next" onClick={nextTestimonial}>
-                <ChevronRight size={24} />
-             </button>
-
-             <div style={{display: 'flex', justifyContent: 'center', gap: 8, marginTop: 30}}>
-                {testimonials.map((_, idx) => (
-                  <button 
-                    key={idx}
-                    onClick={() => setCurrentTestimonial(idx)}
-                    style={{
-                      width: 10, height: 10, borderRadius: '50%', border: 'none', cursor: 'pointer',
-                      background: idx === currentTestimonial ? 'var(--primary)' : '#cbd5e1',
-                      transition: '0.3s'
-                    }}
-                  />
-                ))}
+             <div className="testimonials-grid">
+               {testimonials.map((testimonial, index) => (
+                 <TestimonialCard key={index} data={testimonial} />
+               ))}
              </div>
           </div>
         </div>
@@ -1002,6 +961,9 @@ const App = () => {
                 </a>
                 <a href="https://www.linkedin.com/in/shipra-kiran-bansal-parentingcoach" target="_blank" rel="noopener noreferrer" className="btn-linkedin">
                     <Linkedin size={24} /> Connect on LinkedIn
+                </a>
+                <a href="https://www.facebook.com/share/1W9Gx8zTX5/" target="_blank" rel="noopener noreferrer" className="btn-facebook">
+                    <Facebook size={24} /> Follow on Facebook
                 </a>
             </div>
         </div>
