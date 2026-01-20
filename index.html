@@ -2,12 +2,90 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>portfolio</title>
+    
+    <!-- PRIMARY SEO -->
+    <title>Shipra Kiran Bansal | Certified Life Coach & Parenting Expert</title>
+    <meta name="description" content="Certified guidance counselor and life coach in Bangalore offering relationship counseling, parenting guidance, and emotional healing. 10+ years of experience helping families and individuals." />
+    <meta name="keywords" content="Life Coach Bangalore, Parenting Coach India, Relationship Counsellor, Shipra Kiran Bansal, Healing Circle, Teenage Counselling, Online Therapy India, Emotional Wellness" />
+    <meta name="author" content="Shipra Kiran Bansal" />
+    
+    <!-- CANONICAL URL (Tells Google this is the main version) -->
+    <link rel="canonical" href="https://shiprahealingcircle.com" />
+
+    <!-- OPEN GRAPH / FACEBOOK / WHATSAPP -->
+    <!-- This controls how your link looks when shared -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://shiprahealingcircle.com/" />
+    <meta property="og:title" content="Shipra's Healing Circle | Navigate Life's Ups & Downs" />
+    <meta property="og:description" content="Expert guidance for relationships, parenting, and emotional balance. Join 100+ satisfied families finding their path to healing." />
+    <meta property="og:image" content="https://shiprahealingcircle.com/profile.jpeg" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:site_name" content="Shipra Healing Circle" />
+
+    <!-- TWITTER CARD -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://shiprahealingcircle.com/" />
+    <meta name="twitter:title" content="Shipra Kiran Bansal | Life & Parenting Coach" />
+    <meta name="twitter:description" content="Compassionate support for parenting struggles, relationship conflicts, and personal growth." />
+    <meta name="twitter:image" content="https://shiprahealingcircle.com/profile.jpeg" />
+
+    <!-- GEO TAGS (Helps with Local SEO) -->
+    <meta name="geo.region" content="IN-KA" />
+    <meta name="geo.placename" content="Bangalore" />
+    <meta name="geo.position" content="12.9716;77.5946" />
+    <meta name="ICBM" content="12.9716, 77.5946" />
+
+    <!-- SCHEMA MARKUP (JSON-LD) -->
+    <!-- This speaks directly to Google's database -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Shipra's Healing Circle",
+      "image": "https://shiprahealingcircle.com/profile.jpeg",
+      "url": "https://shiprahealingcircle.com",
+      "telephone": "+919890358011",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Bangalore",
+        "addressRegion": "Karnataka",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 12.9716,
+        "longitude": 77.5946
+      },
+      "priceRange": "$$",
+      "description": "Certified Guidance Counsellor offering support for relationships, parenting, and emotional wellness.",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "opens": "09:00",
+        "closes": "18:00"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/shipra-kiran-bansal-parentingcoach",
+        "https://www.instagram.com/shipra_kiran_guidance_coach",
+        "https://www.facebook.com/share/1W9Gx8zTX5/"
+      ]
+    }
+    </script>
+
+    <!-- FAVICON (Optional: Ensure you have a favicon.ico in your public folder) -->
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   </head>
   <body>
     <div id="root"></div>
+    <!-- Point this to your main React file -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
