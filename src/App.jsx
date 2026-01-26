@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   Heart, Users, Baby, Brain, Anchor, MessageCircle, 
   CheckCircle, Menu, X, Linkedin, Instagram, Facebook,
-  ChevronDown, ArrowRight, BookOpen, Sun, Smile, Globe, Shield, Mic, Quote, User, Mail
+  ChevronDown, ArrowRight, BookOpen, Sun, Smile, Globe, Shield, Mic, Quote, User, Mail, Star
 } from 'lucide-react';
 
 // Sub-component for individual testimonial cards to handle image errors independently
@@ -11,8 +11,14 @@ const TestimonialCard = ({ data }) => {
 
   return (
     <div className="testimonial-card">
-      <div style={{marginBottom: 20, display: 'flex', justifyContent: 'center'}}>
+      <div style={{marginBottom: 20, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
           <Quote size={40} color="#e2e8f0" fill="#e2e8f0" />
+          {/* 5-Star Rating */}
+          <div style={{display: 'flex', gap: 4, marginTop: 10}}>
+             {[...Array(5)].map((_, i) => (
+                <Star key={i} size={16} fill="#fbbf24" color="#fbbf24" />
+             ))}
+          </div>
       </div>
       <p className="testimonial-content">
         "{data.content}"
@@ -107,6 +113,31 @@ const App = () => {
   ];
 
   const testimonials = [
+    // --- NEW VIP TESTIMONIALS ---
+    {
+      type: "named",
+      content: "Shipra Kiran has a unique ability to truly hear and hold space for her clients. Her coaching is a perfect blend of deep warmth, heartfelt guidance, and empowering support. If you are looking to rediscover your strength in a safe, comforting environment, she is an exceptional choice.",
+      label: "Ankush",
+      location: "Director, UBS Business Solutions",
+      image: "/Ankush.jpeg"
+    },
+    {
+      type: "named",
+      content: "Ms. Shipra has a rare and special ability to truly identify your concerns and connect with you at a deeper level. Speaking with her feels effortless and safe, and every conversation leaves you feeling lighter almost as if a weight has been gently lifted off your shoulders. She is a remarkably gifted guidance counsellor with vast experience and an intuitive understanding of how to put you at ease, while thoughtfully guiding you toward the best possible solutions. Her presence itself brings clarity and calm. Highly recommended for anyone seeking direction, balance, and clarity in life.",
+      label: "Cdr Amit",
+      location: "(Retd) Indian Navy | Senior Captain (Indigo Airlines)",
+      image: "/Amit.jpeg",
+      // Applied the specific fix requested
+      imageStyle: { transform: 'scale(1.15) translateX(7px)' }
+    },
+    {
+      type: "named",
+      content: "Being with Mrs. Shipra Kiran feels safe and comforting. She listens with her heart, understands without judgment, and makes you feel truly seen. In moments when you feel lost or overwhelmed, her presence brings calm, clarity, and quiet strength. She has a gentle way of reminding you of your own inner courage and hope. Anyone seeking sincere guidance, emotional support, and a compassionate life coach will find her support truly meaningful.",
+      label: "Sanjay Goyal",
+      location: "Director & SVP, Daikin Airconditioning India Pvt. Ltd.",
+      image: "/Sanjay.jpeg"
+    },
+    // --- EXISTING TESTIMONIALS ---
     {
       type: "named",
       content: "Ms.Shipra Kiran is an exceptionally compassionate and a highly dedicated guidance counselor whose unwavering work ethic and wisdom have profoundly impacted both my son's life and mine. Her genuine presence, patience, and commitment to truly helping the children and parents shine through in all her interactions, thus, creating trust and healing, alongwith a meaningful and lasting growth.",
@@ -132,7 +163,7 @@ const App = () => {
       type: "named",
       content: "Mrs.Shipra Kiran has the skill of understanding and empathising with a client's feelings and effectively making them feel heard,validated and safe.She is the right person to approach as a Life Coach or as a Guidance Counselor. Best of luck in your endeavour.",
       label: "Elizabeth Valsan",
-      location: "Ex-Principal & Academic Director of Shree Niketan Child Care & Education Centre ( Goa )",
+      location: "Ex-Principal of Bharatiya Vidya Bhavan, Goa. Academic Director of Shree Niketan Childcare and Education Centre, Goa",
       image: "/Elizabeth.jpeg",
       imageStyle: { objectPosition: 'center' }
     },
@@ -904,14 +935,14 @@ const App = () => {
               {/* Refined Offer Grid */}
               <div className="offer-grid">
                   <div className="offer-item">
-                     <Globe color="var(--primary)" size={32} />
-                     <div className="offer-text">Online & In-Person Sessions</div>
-                     <div className="offer-subtext">Global reach via video calls or local face-to-face meetings.</div>
+                      <Globe color="var(--primary)" size={32} />
+                      <div className="offer-text">Online & In-Person Sessions</div>
+                      <div className="offer-subtext">Global reach via video calls or local face-to-face meetings.</div>
                   </div>
                   <div className="offer-item">
-                     <Shield color="var(--primary)" size={32} />
-                     <div className="offer-text">Tailored 1-on-1 Guidance</div>
-                     <div className="offer-subtext">Confidential, personalized support for your unique situation.</div>
+                      <Shield color="var(--primary)" size={32} />
+                      <div className="offer-text">Tailored 1-on-1 Guidance</div>
+                      <div className="offer-subtext">Confidential, personalized support for your unique situation.</div>
                   </div>
               </div>
            </div>
@@ -951,8 +982,8 @@ const App = () => {
 
             <h2 className="section-title">Writing & Daily Insights</h2>
             <p style={{fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '40px', lineHeight: 1.8}}>
-                I actively write posts and share videos about <strong>mental health</strong>, <strong>parental guidance</strong>, and <strong>family dynamics</strong>. 
-                I share all my latest thoughts, tips, and Q&As directly on my social media channels.
+                 I actively write posts and share videos about <strong>mental health</strong>, <strong>parental guidance</strong>, and <strong>family dynamics</strong>. 
+                 I share all my latest thoughts, tips, and Q&As directly on my social media channels.
             </p>
 
             <div className="social-buttons">
