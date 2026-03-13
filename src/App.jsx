@@ -116,6 +116,13 @@ const App = () => {
     // --- NEW VIP TESTIMONIALS ---
     {
       type: "named",
+      content: "Mrs Shipra Kiran Bansal, Parenting, Relationship, Life Coach and Counsellor is a through professional. Caring, Discreet and Understanding. She helps by understanding the problem as a family member yet keeping the focus always. Highly Recommended.",
+      label: "Syed Faisal Rizvi",
+      location: "Chairman & Managing Director, United Sustainable Developments Pvt Ltd, Bangalore",
+      image: "/Syed.jpeg"
+    },
+    {
+      type: "named",
       content: "Shipra Kiran has a unique ability to truly hear and hold space for her clients. Her coaching is a perfect blend of deep warmth, heartfelt guidance, and empowering support. If you are looking to rediscover your strength in a safe, comforting environment, she is an exceptional choice.",
       label: "Ankush",
       location: "Director, UBS Business Solutions",
