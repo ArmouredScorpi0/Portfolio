@@ -950,7 +950,7 @@ const App = () => {
       </section>
 
       {/* NEW: Qualifications Section */}
-      <section id="qualifications" className="section">
+      <section id="qualifications" className="section bg-white">
         <div className="container">
           <div className="text-center">
             <h2 className="section-title">Qualifications & Experience</h2>
