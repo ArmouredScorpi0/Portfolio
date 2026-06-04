@@ -437,7 +437,7 @@ const App = () => {
     .card-icon { background: var(--primary-light); padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
     /* About & Profile Qualifications Sections */
-    .section { padding: 100px 0; }
+    .section { padding: 100px 0; overflow: hidden; width: 100%; }
     .bg-white { background: white; }
     .text-center { text-align: center; }
     .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; }
