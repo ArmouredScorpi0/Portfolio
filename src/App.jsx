@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { 
   Heart, Users, Baby, Brain, Anchor, MessageCircle, 
   CheckCircle, Menu, X, Linkedin, Instagram, Facebook,
-  ChevronDown, ArrowRight, BookOpen, Sun, Smile, Globe, Shield, Mic, Quote, User, Mail, Star
+  ChevronDown, ArrowRight, BookOpen, Sun, Smile, Globe, Shield, Mic, Quote, User, Mail, Star,
+  BookMarked, Award, HeartHandshake
 } from 'lucide-react';
 
-// Sub-component for individual testimonial cards to handle image errors independently
 const TestimonialCard = ({ data }) => {
   const [imgError, setImgError] = useState(false);
 
@@ -51,6 +51,9 @@ const TestimonialCard = ({ data }) => {
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeAccordion, setActiveAccordion] = useState(null);
+  
+  // State for the new Profile Qualifications Accordion (0 opens the first tab by default)
+  const [activeProfileAccordion, setActiveProfileAccordion] = useState(0); 
   
   // State to handle broken images safely for profile
   const [profileImgError, setProfileImgError] = useState(false);
@@ -434,7 +437,7 @@ const App = () => {
     .card-bottom { bottom: 40px; left: -40px; }
     .card-icon { background: var(--primary-light); padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
-    /* About Section */
+    /* About & Profile Qualifications Sections */
     .section { padding: 100px 0; }
     .bg-white { background: white; }
     .text-center { text-align: center; }
@@ -460,6 +463,56 @@ const App = () => {
       display: grid; grid-template-columns: 1fr;
       gap: 30px; margin-top: 50px;
     }
+
+    /* Profile Qualifications Accordion Styles */
+    .profile-acc-container {
+      max-width: 1000px;
+      margin: 0 auto; /* Removed top margin since it's its own section now */
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .profile-acc-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    .profile-acc-header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      background: white;
+      transition: background 0.2s;
+    }
+    .profile-acc-header:hover { background: var(--bg-off-white); }
+    .profile-acc-title-group {
+      display: flex; align-items: center; gap: 16px;
+      font-weight: 700; font-size: 1.2rem; color: var(--text-main);
+    }
+    .profile-acc-icon {
+      background: var(--primary-light);
+      padding: 12px; border-radius: 14px; color: var(--primary);
+    }
+    .profile-acc-body {
+      padding: 0 24px;
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: all 0.3s ease;
+      background: var(--bg-off-white);
+    }
+    .profile-acc-body.open {
+      max-height: 600px; opacity: 1; padding: 24px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .profile-acc-body ul {
+      margin: 0; padding-left: 20px; color: var(--text-muted); line-height: 1.8; font-size: 1.1rem;
+    }
+    .profile-acc-body li { margin-bottom: 16px; }
+    .profile-acc-body li:last-child { margin-bottom: 0; }
+    .profile-acc-body strong { color: var(--text-main); font-weight: 600; }
 
     /* What I Offer Section */
     .offer-section {
@@ -601,7 +654,7 @@ const App = () => {
 
     /* Writing Section */
     .writing-box {
-      max-width: 900px; margin: 0 auto; text-center;
+      max-width: 900px; margin: 0 auto; text-align: center;
     }
     .social-buttons {
       display: flex; gap: 20px; justify-content: center; margin-top: 40px; flex-wrap: wrap;
@@ -734,6 +787,7 @@ const App = () => {
           
           <div className="desktop-menu">
             <a href="#about">About</a>
+            <a href="#qualifications">Qualifications</a>
             <a href="#services">Services</a>
             <a href="#testimonials">Testimonials</a>
             <a href="#writing">Writing</a>
@@ -750,6 +804,7 @@ const App = () => {
         {isMenuOpen && (
           <div className="mobile-menu">
             <a href="#about" onClick={toggleMenu}>About Me</a>
+            <a href="#qualifications" onClick={toggleMenu}>Qualifications</a>
             <a href="#services" onClick={toggleMenu}>Services</a>
             <a href="#testimonials" onClick={toggleMenu}>Testimonials</a>
             <a href="#writing" onClick={toggleMenu}>Writing</a>
@@ -848,7 +903,7 @@ const App = () => {
                 <div className="card-icon"><CheckCircle size={20} color="#0d9488"/></div>
                 <div>
                   <div style={{fontSize: '11px', color: '#64748b', fontWeight: 'bold', letterSpacing: '0.5px'}}>EXPERIENCE</div>
-                  <div style={{fontWeight: 'bold', fontSize: '14px', color: '#0f172a'}}>10+ Years</div>
+                  <div style={{fontWeight: 'bold', fontSize: '14px', color: '#0f172a'}}>15+ Years</div>
                 </div>
              </div>
           </div>
@@ -871,7 +926,7 @@ const App = () => {
             </p>
             
             <p style={{fontSize: '1.25rem', lineHeight: 1.8}}>
-              With over <strong>10 years of experience</strong> as a Counsellor & Facilitator, I’ve been helping Individuals, Couples, Children/Teens, and Parents navigate through life’s emotional ups and downs—whether it’s Relationship conflicts, Parenting challenges, Teenage issues, Anxiety, Anger, Academic stress, or Postpartum struggles.
+              With over <strong>15+ years of experience</strong> as a Counsellor & Facilitator, I’ve been helping Individuals, Couples, Children/Teens, and Parents navigate through life’s emotional ups and downs—whether it’s Relationship conflicts, Parenting challenges, Teenage issues, Anxiety, Anger, Academic stress, or Postpartum struggles.
             </p>
             
             <div className="stats-grid">
@@ -895,8 +950,71 @@ const App = () => {
         </div>
       </section>
 
+      {/* NEW: Qualifications Section */}
+      <section id="qualifications" className="section">
+        <div className="container">
+          <div className="text-center">
+            <h2 className="section-title">Qualifications & Experience</h2>
+            <div className="divider"></div>
+          </div>
+
+          <div className="profile-acc-container">
+            {/* Accordion 1: Education */}
+            <div className="profile-acc-card">
+              <div className="profile-acc-header" onClick={() => setActiveProfileAccordion(activeProfileAccordion === 0 ? null : 0)}>
+                <div className="profile-acc-title-group">
+                  <div className="profile-acc-icon"><BookMarked size={24}/></div>
+                  Education & Certifications
+                </div>
+                <ChevronDown size={24} style={{transform: activeProfileAccordion === 0 ? 'rotate(180deg)' : 'rotate(0)', transition: '0.3s', color: 'var(--text-muted)'}} />
+              </div>
+              <div className={`profile-acc-body ${activeProfileAccordion === 0 ? 'open' : ''}`}>
+                <ul>
+                  <li>B.Ed. with specialization in <strong>Child & Parent Psychology</strong>, building a strong foundation in emotional development, family dynamics, and supportive guidance.</li>
+                  <li>Completed a Certificate Course in Guidance & Counselling from <strong>IGNOU</strong> to deepen therapeutic and counseling skills.</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Accordion 2: Experience */}
+            <div className="profile-acc-card">
+              <div className="profile-acc-header" onClick={() => setActiveProfileAccordion(activeProfileAccordion === 1 ? null : 1)}>
+                <div className="profile-acc-title-group">
+                  <div className="profile-acc-icon"><HeartHandshake size={24}/></div>
+                  Experience & Welfare Leadership
+                </div>
+                <ChevronDown size={24} style={{transform: activeProfileAccordion === 1 ? 'rotate(180deg)' : 'rotate(0)', transition: '0.3s', color: 'var(--text-muted)'}} />
+              </div>
+              <div className={`profile-acc-body ${activeProfileAccordion === 1 ? 'open' : ''}`}>
+                <ul>
+                  <li>Bringing together <strong>15+ years of hands-on experience</strong>, with a compassionate and practical approach to helping individuals build clarity, resilience, emotional well-being, and healthier lives.</li>
+                  <li>Served in a leadership role within <strong>Naval Squadron Family Welfare</strong> initiatives, providing regular counseling and emotional support to <strong>100+ families</strong> through personal, relational, and life transitions.</li>
+                  <li>Began professional journey in education as a teacher, where <strong>counseling and supporting parents and educators</strong> became an integral part of my work.</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Accordion 3: Specialized Training */}
+            <div className="profile-acc-card">
+              <div className="profile-acc-header" onClick={() => setActiveProfileAccordion(activeProfileAccordion === 2 ? null : 2)}>
+                <div className="profile-acc-title-group">
+                  <div className="profile-acc-icon"><Award size={24}/></div>
+                  Specialized Training
+                </div>
+                <ChevronDown size={24} style={{transform: activeProfileAccordion === 2 ? 'rotate(180deg)' : 'rotate(0)', transition: '0.3s', color: 'var(--text-muted)'}} />
+              </div>
+              <div className={`profile-acc-body ${activeProfileAccordion === 2 ? 'open' : ''}`}>
+                <ul>
+                  <li>Further strengthened my professional practice through <strong>NLP (Neuro-Linguistic Programming)</strong> training with focus areas in <strong>Child Psychology, Parent Psychology, Behavioural Psychology</strong>, and practical life interventions.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Services Section */}
-      <section id="services" className="section services-bg-fix">
+      <section id="services" className="section bg-white">
         <div className="container">
           <div className="text-center">
             <h2 className="section-title">How I Can Help</h2>
