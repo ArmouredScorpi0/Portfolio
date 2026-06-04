@@ -275,7 +275,7 @@ const App = () => {
       width: 100%;
       max-width: 1600px; 
       margin: 0 auto;
-      padding: 0 40px;    
+      padding: 0 20px;    
     }
 
     /* Navigation */
@@ -345,7 +345,6 @@ const App = () => {
       margin-bottom: 20px;
       display: inline-block;
       line-height: 1.2;
-      white-space: nowrap;
     }
     .hero-grid {
       display: grid;
