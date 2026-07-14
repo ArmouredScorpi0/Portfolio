@@ -437,7 +437,7 @@ const App = () => {
     .card-icon { background: var(--primary-light); padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
     /* About & Profile Qualifications Sections */
-    .section { padding: 100px 0; overflow: hidden; width: 100%; }
+    .section { padding: 100px 0; overflow: hidden; width 100% }
     .bg-white { background: white; }
     .text-center { text-align: center; }
     .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; }
@@ -849,7 +849,11 @@ const App = () => {
                 </div>
                 <div className="hero-title-item">
                     <div className="hero-bullet"></div>
-                    Personal Counselling
+                    Personal Growth
+                </div>
+                <div className="hero-title-item">
+                    <div className="hero-bullet"></div>
+                    Emotional Healing
                 </div>
             </div>
 
@@ -950,7 +954,7 @@ const App = () => {
       </section>
 
       {/* NEW: Qualifications Section */}
-      <section id="qualifications" className="section bg-white">
+      <section id="qualifications" className="section" bg-white>
         <div className="container">
           <div className="text-center">
             <h2 className="section-title">Qualifications & Experience</h2>
@@ -1167,8 +1171,11 @@ const App = () => {
       <section id="approach" className="section approach">
         <div className="container" style={{position: 'relative', zIndex: 2}}>
           <div className="text-center">
-            <h2 className="section-title">My Promise To You</h2>
+            <h2 className="section-title">My Approach</h2>
             <div className="divider" style={{background: 'white', opacity: 0.5}}></div>
+            <p style={{fontSize: '1.25rem', opacity: 0.9, marginBottom: '50px', maxWidth: '900px', margin: '0 auto 50px', lineHeight: 1.8}}>
+               I follow a flexible, client-centered approach that blends proven behavioral strategies, <strong>NLP (Neuro-Linguistic Programming)</strong> tools, and mindfulness practices. Drawing from the principles of <strong>CBT (Cognitive Behavioral Techniques)</strong> and emotional healing, I create a customized support system tailored to your unique needs. My ultimate goal is to encourage deep self-awareness, foster personal growth, and guide you toward lasting, positive change.
+            </p>
           </div>
           
           <div className="grid-3">
